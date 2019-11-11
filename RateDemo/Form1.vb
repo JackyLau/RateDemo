@@ -19,9 +19,9 @@ Public Class Form1
     Public F2_Rate As Int16  ' 用作傳遞從 Form2 輸入的 星號評價 資料
 
     ' 以下參數, 改回合用的
-    'Const C_SERVER As String = "LocalHost"  ' 資料庫位置 ... 便用時應改回 "LocalHost" 或 "127.0.0.1"
-    'Const C_USERNAME As String = "OneLoginName"  ' 資料庫 Login 用戶名
-    'Const C_PASSWORD As String = "OnePassWord"  ' 資料庫 Login 密碼
+    Const C_SERVER As String = "LocalHost"  ' 資料庫位置 ... 便用時應改回 "LocalHost" 或 "127.0.0.1"
+    Const C_USERNAME As String = "OneLoginName"  ' 資料庫 Login 用戶名
+    Const C_PASSWORD As String = "OnePassWord"  ' 資料庫 Login 密碼
     Const C_DATABASE As String = "mydb"  ' 資料庫名稱
     Const C_TABLE As String = "product"  ' 資料表名稱
     Const C_OnlyRateOneTime As Boolean = False  ' 設定在同一次開啟程式時, 同一產品只可評價一次 (True = 只可評價一次 ... False = 可評價多次)
@@ -31,12 +31,15 @@ Public Class Form1
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Dim vLine() As String  ' 資料庫接入資訊
 
-        ' 從設定檔案, 取得資料庫接入資訊
-        vLine = Split(My.Computer.FileSystem.ReadAllText("Login.user"), vbCrLf)
-
         ' 先連接資料庫
-        'MySqlConn.ConnectionString = "server=" & C_SERVER & ";userid=" & C_USERNAME & ";password=" & C_PASSWORD & ";database=" & C_DATABASE
-        MySqlConn.ConnectionString = "server=" & Trim(vLine(0)) & ";userid=" & Trim(vLine(1)) & ";password=" & Trim(vLine(2)) & ";database=" & Trim(vLine(3))
+        If System.IO.File.Exists(Application.StartupPath & "\Login.user") Then
+            ' 從設定檔案, 取得資料庫接入資訊 ... Line 1 = 資料庫位置, Line 2 = 登入名稱, Line 3 = 登入密碼, Line 4 = 資料庫名稱
+            vLine = Split(My.Computer.FileSystem.ReadAllText("Login.user"), vbCrLf)
+            MySqlConn.ConnectionString = "server=" & Trim(vLine(0)) & ";userid=" & Trim(vLine(1)) & ";password=" & Trim(vLine(2)) & ";database=" & Trim(vLine(3))
+        Else
+            MySqlConn.ConnectionString = "server=" & C_SERVER & ";userid=" & C_USERNAME & ";password=" & C_PASSWORD & ";database=" & C_DATABASE
+        End If
+
         Try
             MySqlConn.Open()
         Catch ex As Exception
