@@ -71,6 +71,8 @@ Public Class Form1
             NQ_command.CommandText = "CREATE TABLE " & C_TABLE & "(" &
              "productid INT(8) UNSIGNED Not NULL, " &
              "productname varchar(63) Not NULL, " &
+             "productcategory varchar(63) Not NULL, " &
+             "location varchar(63) Not NULL, " &
              "price DOUBLE Not NULL DEFAULT 0, " &
              "star5 Int(8) Not NULL Default 0, " &
              "star4 Int(8) Not NULL Default 0, " &
@@ -100,8 +102,28 @@ Public Class Form1
         DataGridView1.ReadOnly = True
         DataGridView1.SelectionMode = DataGridViewSelectionMode.FullRowSelect
 
+
+        ' 列出產品的分組 (productcategory) 於 ComboBox .... 方法二 (若用此方法, 可不需要用以下的方法一)
+        SqlAdapter.SelectCommand = New MySqlCommand("Select productcategory FROM " & C_TABLE & " WHERE (productcategory != '') GROUP BY productcategory", MySqlConn)
+        SqlAdapter.Fill(MydbDataSet, "CatagoryList")
+        SqlAdapter.SelectCommand.Dispose()
+        ComboBox1.DataSource = MydbDataSet.Tables("CatagoryList")
+        ComboBox1.DisplayMember = "productcategory"
+        ComboBox1.Text = ""
+        ' 方法二 .... 完
+
+        ' 顯示所有記錄
         F2_Rate = 0
-        Call P_ShowRecord("True")  ' 顯示所有記錄
+        Call P_ShowRecord("True")
+
+        '' 列出產品的分組 (productcategory) 於 ComboBox .... 方法一 (若用此方法, 可不需要用以上的方法二)
+        'ComboBox1.Items.Clear()
+        'For Each OneRow As DataRow In MydbDataSet.Tables(C_TABLE).Rows
+        '    If (OneRow("productcategory") & "" <> "") AndAlso (ComboBox1.FindStringExact(OneRow("productcategory")) = -1) Then
+        '        ComboBox1.Items.Add(OneRow("productcategory"))
+        '    End If
+        'Next
+        '' 方法一 .... 完
 
         ' 設定 TextBox 自動顯示選取的一筆記錄的內容
         TXTstar5.DataBindings.Add("Text", MydbDataSetBindingSource, "star5")
@@ -113,6 +135,8 @@ Public Class Form1
         TXTproductID.DataBindings.Add("Text", MydbDataSetBindingSource, "productid")
         TXTproductName.DataBindings.Add("Text", MydbDataSetBindingSource, "productname")
         TXTprice.DataBindings.Add("Text", MydbDataSetBindingSource, "price")
+        TXTcatagory.DataBindings.Add("Text", MydbDataSetBindingSource, "productcategory")
+        TXTlocation.DataBindings.Add("Text", MydbDataSetBindingSource, "location")
 
         PictureBox1.AllowDrop = True
     End Sub
@@ -124,7 +148,7 @@ Public Class Form1
         PictureBox1.Image = Nothing  ' 先把圖片回空白
 
         ' 按條件選取記錄
-        MydbDataSet.Clear()
+        MydbDataSet.Tables(C_TABLE).Clear()
         SqlAdapter.SelectCommand = New MySqlCommand("Select * FROM " & C_TABLE & " WHERE (" & M_condition & ")", MySqlConn)
 
         ' 連接資料表 (Data Table)
@@ -168,10 +192,12 @@ Public Class Form1
     ' 已選取了一筆記錄, 把內容顯示出來
     Private Sub DataGridView1_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles DataGridView1.CellClick
         If e.RowIndex <> -1 Then Call P_ShowPicture(e.RowIndex)  ' 若不是按了列表的頂部, 顯示圖片
+        Lbltotalnumber.Text = Val(TXTstar1.Text) + Val(TXTstar2.Text) + Val(TXTstar3.Text) + Val(TXTstar4.Text) + Val(TXTstar5.Text)
     End Sub
 
     ' 顯示所有記錄
     Private Sub BTreset_Click(sender As Object, e As EventArgs) Handles BTreset.Click
+        ComboBox1.Text = ""
         TXTinput.Text = ""
         Call P_ShowRecord("True")
     End Sub
@@ -236,6 +262,8 @@ Public Class Form1
             If C_OnlyRateOneTime Then ArrRated.Add(DataGridView1.CurrentRow.Cells("productid").Value)
             F2_Rate = 0
         End If
+
+        Lbltotalnumber.Text = Val(TXTstar1.Text) + Val(TXTstar2.Text) + Val(TXTstar3.Text) + Val(TXTstar4.Text) + Val(TXTstar5.Text)
     End Sub
 
     ' 顯示已選取記錄的評語 (Comment) 內容
@@ -296,5 +324,10 @@ Public Class Form1
         SQLdataRow = MydbDataSet.Tables(C_TABLE).Rows.Find(DataGridView1.CurrentRow.Cells("productid").Value)
         SQLdataRow.Item("picture") = ArrImage
         SqlAdapter.Update(MydbDataSet, C_TABLE)
+    End Sub
+
+    ' 列出已選的組別
+    Private Sub ComboBox1_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ComboBox1.SelectedIndexChanged
+        Call P_ShowRecord("productcategory = '" & ComboBox1.Text & "'")
     End Sub
 End Class

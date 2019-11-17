@@ -38,7 +38,7 @@
         Next
 
         ' 把評語 (comment) 記錄
-        If Trim(GunaTextBox1.Text) <> TextBoxDefault Then Form1.F2_Comment = Trim(GunaTextBox1.Text)
+        If Trim(GunaTextBox1.Text) <> TextBoxDefault Then Form1.F2_Comment = Now() & " - " & Trim(GunaTextBox1.Text)
 
         Me.Close()   ' 返回
     End Sub
