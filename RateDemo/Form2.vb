@@ -17,12 +17,14 @@
         For i = 0 To 4
             ArrButton(i).Enabled = True
         Next
+        GunaTextBox1.Enabled = False
     End Sub
 
     ' 按下一個 "評價星星" 按鈕, 把按鈕設為反白顏色 (Disable) ... 其他按鈕還原為未按
     Private Sub GunaImageButton1_Click(sender As Object, e As EventArgs) Handles GunaImageButton1.Click, GunaImageButton2.Click, GunaImageButton3.Click, GunaImageButton4.Click, GunaImageButton5.Click
         Call P_Reset()
         sender.enabled = False
+        GunaTextBox1.Enabled = True
     End Sub
 
     ' 返回原本視窗
@@ -40,7 +42,12 @@
         ' 把評語 (comment) 記錄
         If Trim(GunaTextBox1.Text) <> TextBoxDefault Then Form1.F2_Comment = Now() & " - " & Trim(GunaTextBox1.Text)
 
-        Me.Close()   ' 返回
+        ' 必須要曾經評分, 才可交表格
+        If Form1.F2_Rate = 0 Then
+            MessageBox.Show("Rate before submit please")
+        Else
+            Me.Close()   ' 返回
+        End If
     End Sub
 
     ' 把內定文字改為空白, 以方便用戶填寫評語 (comment)
@@ -52,4 +59,5 @@
     Private Sub Form2_Closed(sender As Object, e As EventArgs) Handles Me.Closed
         Button1.Focus()
     End Sub
+
 End Class

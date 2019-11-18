@@ -101,7 +101,7 @@ Public Class Form1
         DataGridView1.AllowUserToDeleteRows = False
         DataGridView1.ReadOnly = True
         DataGridView1.SelectionMode = DataGridViewSelectionMode.FullRowSelect
-
+        DataGridView1.AllowUserToResizeRows = False
 
         ' 列出產品的分組 (productcategory) 於 ComboBox .... 方法二 (若用此方法, 可不需要用以下的方法一)
         SqlAdapter.SelectCommand = New MySqlCommand("Select productcategory FROM " & C_TABLE & " WHERE (productcategory != '') GROUP BY productcategory", MySqlConn)
@@ -138,6 +138,8 @@ Public Class Form1
         TXTcatagory.DataBindings.Add("Text", MydbDataSetBindingSource, "productcategory")
         TXTlocation.DataBindings.Add("Text", MydbDataSetBindingSource, "location")
 
+        Lbltotalnumber.DataBindings.Add("Text", MydbDataSetBindingSource, "totstar")  ' 列出已評分的總數
+
         PictureBox1.AllowDrop = True
     End Sub
 
@@ -147,9 +149,9 @@ Public Class Form1
 
         PictureBox1.Image = Nothing  ' 先把圖片回空白
 
-        ' 按條件選取記錄
+        ' 按條件選取記錄 ... totstar 為已評分的總數
         MydbDataSet.Tables(C_TABLE).Clear()
-        SqlAdapter.SelectCommand = New MySqlCommand("Select * FROM " & C_TABLE & " WHERE (" & M_condition & ")", MySqlConn)
+        SqlAdapter.SelectCommand = New MySqlCommand("Select *, (star1+star2+star3+star4+star5) As totstar FROM " & C_TABLE & " WHERE (" & M_condition & ")", MySqlConn)
 
         ' 連接資料表 (Data Table)
         Try
@@ -192,8 +194,8 @@ Public Class Form1
     ' 已選取了一筆記錄, 把內容顯示出來
     Private Sub DataGridView1_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles DataGridView1.CellClick
         If e.RowIndex <> -1 Then Call P_ShowPicture(e.RowIndex)  ' 若不是按了列表的頂部, 顯示圖片
-        Lbltotalnumber.Text = Val(TXTstar1.Text) + Val(TXTstar2.Text) + Val(TXTstar3.Text) + Val(TXTstar4.Text) + Val(TXTstar5.Text)
     End Sub
+
 
     ' 顯示所有記錄
     Private Sub BTreset_Click(sender As Object, e As EventArgs) Handles BTreset.Click
@@ -201,6 +203,7 @@ Public Class Form1
         TXTinput.Text = ""
         Call P_ShowRecord("True")
     End Sub
+
 
     ' 顯示產品名稱部份相同的記錄
     Private Sub BTpart_Click(sender As Object, e As EventArgs) Handles BTpart.Click
@@ -261,9 +264,9 @@ Public Class Form1
             ' 加進入已評分產品記錄群內
             If C_OnlyRateOneTime Then ArrRated.Add(DataGridView1.CurrentRow.Cells("productid").Value)
             F2_Rate = 0
-        End If
 
-        Lbltotalnumber.Text = Val(TXTstar1.Text) + Val(TXTstar2.Text) + Val(TXTstar3.Text) + Val(TXTstar4.Text) + Val(TXTstar5.Text)
+            SqlAdapter.Fill(MydbDataSet, C_TABLE)
+        End If
     End Sub
 
     ' 顯示已選取記錄的評語 (Comment) 內容

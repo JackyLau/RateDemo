@@ -56,6 +56,7 @@ Partial Class Form1
         Me.Label9 = New System.Windows.Forms.Label()
         Me.TXTlocation = New System.Windows.Forms.TextBox()
         Me.Label10 = New System.Windows.Forms.Label()
+        Me.Button2 = New System.Windows.Forms.Button()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.MydbDataSetBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -110,7 +111,7 @@ Partial Class Form1
         'Label5
         '
         Me.Label5.AutoSize = True
-        Me.Label5.Location = New System.Drawing.Point(138, 200)
+        Me.Label5.Location = New System.Drawing.Point(133, 200)
         Me.Label5.Name = "Label5"
         Me.Label5.Size = New System.Drawing.Size(33, 12)
         Me.Label5.TabIndex = 5
@@ -119,7 +120,7 @@ Partial Class Form1
         'Label6
         '
         Me.Label6.AutoSize = True
-        Me.Label6.Location = New System.Drawing.Point(206, 200)
+        Me.Label6.Location = New System.Drawing.Point(198, 200)
         Me.Label6.Name = "Label6"
         Me.Label6.Size = New System.Drawing.Size(33, 12)
         Me.Label6.TabIndex = 6
@@ -128,7 +129,7 @@ Partial Class Form1
         'Label7
         '
         Me.Label7.AutoSize = True
-        Me.Label7.Location = New System.Drawing.Point(264, 200)
+        Me.Label7.Location = New System.Drawing.Point(263, 200)
         Me.Label7.Name = "Label7"
         Me.Label7.Size = New System.Drawing.Size(33, 12)
         Me.Label7.TabIndex = 7
@@ -137,7 +138,7 @@ Partial Class Form1
         'Label8
         '
         Me.Label8.AutoSize = True
-        Me.Label8.Location = New System.Drawing.Point(331, 200)
+        Me.Label8.Location = New System.Drawing.Point(328, 200)
         Me.Label8.Name = "Label8"
         Me.Label8.Size = New System.Drawing.Size(33, 12)
         Me.Label8.TabIndex = 8
@@ -187,7 +188,7 @@ Partial Class Form1
         'TXTstar4
         '
         Me.TXTstar4.Enabled = False
-        Me.TXTstar4.Location = New System.Drawing.Point(171, 197)
+        Me.TXTstar4.Location = New System.Drawing.Point(166, 197)
         Me.TXTstar4.Name = "TXTstar4"
         Me.TXTstar4.Size = New System.Drawing.Size(20, 22)
         Me.TXTstar4.TabIndex = 15
@@ -195,7 +196,7 @@ Partial Class Form1
         'TXTstar3
         '
         Me.TXTstar3.Enabled = False
-        Me.TXTstar3.Location = New System.Drawing.Point(239, 197)
+        Me.TXTstar3.Location = New System.Drawing.Point(231, 197)
         Me.TXTstar3.Name = "TXTstar3"
         Me.TXTstar3.Size = New System.Drawing.Size(20, 22)
         Me.TXTstar3.TabIndex = 16
@@ -203,7 +204,7 @@ Partial Class Form1
         'TXTstar2
         '
         Me.TXTstar2.Enabled = False
-        Me.TXTstar2.Location = New System.Drawing.Point(297, 197)
+        Me.TXTstar2.Location = New System.Drawing.Point(296, 197)
         Me.TXTstar2.Name = "TXTstar2"
         Me.TXTstar2.Size = New System.Drawing.Size(20, 22)
         Me.TXTstar2.TabIndex = 17
@@ -211,7 +212,7 @@ Partial Class Form1
         'TXTstar1
         '
         Me.TXTstar1.Enabled = False
-        Me.TXTstar1.Location = New System.Drawing.Point(364, 197)
+        Me.TXTstar1.Location = New System.Drawing.Point(361, 197)
         Me.TXTstar1.Name = "TXTstar1"
         Me.TXTstar1.Size = New System.Drawing.Size(20, 22)
         Me.TXTstar1.TabIndex = 18
@@ -326,11 +327,21 @@ Partial Class Form1
         Me.Label10.TabIndex = 29
         Me.Label10.Text = "Location :"
         '
+        'Button2
+        '
+        Me.Button2.Location = New System.Drawing.Point(662, 207)
+        Me.Button2.Name = "Button2"
+        Me.Button2.Size = New System.Drawing.Size(57, 25)
+        Me.Button2.TabIndex = 31
+        Me.Button2.Text = "Button2"
+        Me.Button2.UseVisualStyleBackColor = True
+        '
         'Form1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(744, 505)
+        Me.Controls.Add(Me.Button2)
         Me.Controls.Add(Me.TXTlocation)
         Me.Controls.Add(Me.Label10)
         Me.Controls.Add(Me.TXTcatagory)
@@ -405,4 +416,5 @@ Partial Class Form1
     Friend WithEvents Label9 As Label
     Friend WithEvents TXTlocation As TextBox
     Friend WithEvents Label10 As Label
+    Friend WithEvents Button2 As Button
 End Class
