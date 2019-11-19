@@ -103,6 +103,13 @@ Public Class Form1
         DataGridView1.SelectionMode = DataGridViewSelectionMode.FullRowSelect
         DataGridView1.AllowUserToResizeRows = False
 
+        ' 設定只需要列出的資料行
+        DataGridView1.AutoGenerateColumns = False
+        DataGridView1.Columns.Add(New DataGridViewTextBoxColumn With {.Name = "Category", .DataPropertyName = "productcategory"})
+        DataGridView1.Columns.Add(New DataGridViewTextBoxColumn With {.Name = "ID", .DataPropertyName = "productid"})
+        DataGridView1.Columns.Add(New DataGridViewTextBoxColumn With {.Name = "Name", .DataPropertyName = "productname"})
+        DataGridView1.Columns.Add(New DataGridViewTextBoxColumn With {.Name = "Price", .DataPropertyName = "price"})
+
         ' 列出產品的分組 (productcategory) 於 ComboBox .... 方法二 (若用此方法, 可不需要用以下的方法一)
         SqlAdapter.SelectCommand = New MySqlCommand("Select productcategory FROM " & C_TABLE & " WHERE (productcategory != '') GROUP BY productcategory", MySqlConn)
         SqlAdapter.Fill(MydbDataSet, "CatagoryList")
@@ -180,14 +187,21 @@ Public Class Form1
 
     ' 顯示圖片 ..... V_row = 資料表的行號
     Private Sub P_ShowPicture(ByVal V_row As Int16)
-        ' 有圖片才顯示
-        If DataGridView1.Rows(V_row).Cells("picture").Value.ToString = "" Then
-            PictureBox1.Image = Nothing
-        Else
-            Dim ImgBytes As Byte() = DataGridView1.Rows(V_row).Cells("picture").Value  ' 照片的二進制資料陣列
-            ' 若已有舊照片, 先釋放資源
-            If PictureBox1.Image IsNot Nothing Then PictureBox1.Image.Dispose()
-            PictureBox1.Image = Image.FromStream(New System.IO.MemoryStream(ImgBytes))
+        Dim SQLdataRow As DataRow  ' 一筆資料的記錄
+
+        If DataGridView1.Rows.Count > 0 Then
+            ' 先取得現時的一筆資料的記錄
+            SQLdataRow = MydbDataSet.Tables(C_TABLE).Rows.Find(DataGridView1.CurrentRow.Cells("ID").Value)
+
+            ' 有圖片才顯示
+            If SQLdataRow.Item("picture").ToString = "" Then
+                PictureBox1.Image = Nothing
+            Else
+                Dim ImgBytes As Byte() = SQLdataRow.Item("picture")  ' 照片的二進制資料陣列
+                ' 若已有舊照片, 先釋放資源
+                If PictureBox1.Image IsNot Nothing Then PictureBox1.Image.Dispose()
+                PictureBox1.Image = Image.FromStream(New System.IO.MemoryStream(ImgBytes))
+            End If
         End If
     End Sub
 
@@ -237,7 +251,7 @@ Public Class Form1
     ' 去 Form2 表單, 輸入內容
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
         ' 測試是否已在此次評分同一產品 ... 及必須有記錄於資料庫內 ... 合乎條件才可進入評分頁 (Form2)
-        If ((ArrRated.Contains(DataGridView1.CurrentRow.Cells("productid").Value) = False) Or (C_OnlyRateOneTime = False)) And
+        If ((ArrRated.Contains(DataGridView1.CurrentRow.Cells("ID").Value) = False) Or (C_OnlyRateOneTime = False)) And
          (MydbDataSet.Tables(C_TABLE).Rows.Count > 0) Then
             F2_Rate = 0
             F2_Comment = ""
@@ -253,7 +267,7 @@ Public Class Form1
         If F2_Rate <> 0 Then
 
             ' 先取得現時的一筆資料的記錄
-            SQLdataRow = MydbDataSet.Tables(C_TABLE).Rows.Find(DataGridView1.CurrentRow.Cells("productid").Value)
+            SQLdataRow = MydbDataSet.Tables(C_TABLE).Rows.Find(DataGridView1.CurrentRow.Cells("ID").Value)
             ' 在資料記錄內, 把已選取的 "評價星星" 數目加一
             SQLdataRow.Item("star" & CStr(F2_Rate)) += 1
             ' 如果有寫入評語 (Comment), 加入一行新的評語 (加入於原有的評語下)
@@ -262,7 +276,7 @@ Public Class Form1
             SqlAdapter.Update(MydbDataSet, C_TABLE)
 
             ' 加進入已評分產品記錄群內
-            If C_OnlyRateOneTime Then ArrRated.Add(DataGridView1.CurrentRow.Cells("productid").Value)
+            If C_OnlyRateOneTime Then ArrRated.Add(DataGridView1.CurrentRow.Cells("ID").Value)
             F2_Rate = 0
 
             SqlAdapter.Fill(MydbDataSet, C_TABLE)
@@ -271,7 +285,7 @@ Public Class Form1
 
     ' 顯示已選取記錄的評語 (Comment) 內容
     Private Sub BTcomment_Click(sender As Object, e As EventArgs) Handles BTcomment.Click
-        If MydbDataSet.Tables(C_TABLE).Rows.Count > 0 Then MessageBox.Show(DataGridView1.Rows(DataGridView1.CurrentRow.Index).Cells("comment").Value)
+        If MydbDataSet.Tables(C_TABLE).Rows.Count > 0 Then MessageBox.Show(MydbDataSet.Tables(C_TABLE).Rows.Find(DataGridView1.CurrentRow.Cells("ID").Value).Item("comment"))
     End Sub
 
 
@@ -324,7 +338,7 @@ Public Class Form1
         Mstream.Dispose()
 
         ' 把照片放在列表內 ... 再在資料庫更新記錄
-        SQLdataRow = MydbDataSet.Tables(C_TABLE).Rows.Find(DataGridView1.CurrentRow.Cells("productid").Value)
+        SQLdataRow = MydbDataSet.Tables(C_TABLE).Rows.Find(DataGridView1.CurrentRow.Cells("ID").Value)
         SQLdataRow.Item("picture") = ArrImage
         SqlAdapter.Update(MydbDataSet, C_TABLE)
     End Sub
@@ -333,4 +347,5 @@ Public Class Form1
     Private Sub ComboBox1_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ComboBox1.SelectedIndexChanged
         Call P_ShowRecord("productcategory = '" & ComboBox1.Text & "'")
     End Sub
+
 End Class

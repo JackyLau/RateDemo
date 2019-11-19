@@ -56,7 +56,6 @@ Partial Class Form1
         Me.Label9 = New System.Windows.Forms.Label()
         Me.TXTlocation = New System.Windows.Forms.TextBox()
         Me.Label10 = New System.Windows.Forms.Label()
-        Me.Button2 = New System.Windows.Forms.Button()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.MydbDataSetBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -308,7 +307,7 @@ Partial Class Form1
         Me.Label9.Name = "Label9"
         Me.Label9.Size = New System.Drawing.Size(54, 12)
         Me.Label9.TabIndex = 27
-        Me.Label9.Text = "Catagory :"
+        Me.Label9.Text = "Category :"
         '
         'TXTlocation
         '
@@ -327,21 +326,11 @@ Partial Class Form1
         Me.Label10.TabIndex = 29
         Me.Label10.Text = "Location :"
         '
-        'Button2
-        '
-        Me.Button2.Location = New System.Drawing.Point(662, 207)
-        Me.Button2.Name = "Button2"
-        Me.Button2.Size = New System.Drawing.Size(57, 25)
-        Me.Button2.TabIndex = 31
-        Me.Button2.Text = "Button2"
-        Me.Button2.UseVisualStyleBackColor = True
-        '
         'Form1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(744, 505)
-        Me.Controls.Add(Me.Button2)
         Me.Controls.Add(Me.TXTlocation)
         Me.Controls.Add(Me.Label10)
         Me.Controls.Add(Me.TXTcatagory)
@@ -416,5 +405,4 @@ Partial Class Form1
     Friend WithEvents Label9 As Label
     Friend WithEvents TXTlocation As TextBox
     Friend WithEvents Label10 As Label
-    Friend WithEvents Button2 As Button
 End Class
