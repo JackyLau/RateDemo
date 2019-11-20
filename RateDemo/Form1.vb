@@ -18,6 +18,10 @@ Public Class Form1
     Public F2_Comment As String  ' 用作傳遞從 Form2 輸入的 Comment 資料
     Public F2_Rate As Int16  ' 用作傳遞從 Form2 輸入的 星號評價 資料
 
+    Public F3_Name As String  ' 用作傳遞從 Form3 輸入的 Name 資料
+    Public F3_Password As String   ' 用作傳遞從 Form3 輸入的 Password 資料
+    Public F3_Command As Int16   ' 用作傳遞從 Form3 輸入的指令 ... 0=離開, 1=登記, 2=登入
+
     ' 以下參數, 改回合用的
     Const C_SERVER As String = "LocalHost"  ' 資料庫位置 ... 便用時應改回 "LocalHost" 或 "127.0.0.1"
     Const C_USERNAME As String = "OneLoginName"  ' 資料庫 Login 用戶名
@@ -25,6 +29,7 @@ Public Class Form1
     Const C_DATABASE As String = "mydb"  ' 資料庫名稱
     Const C_TABLE As String = "product"  ' 資料表名稱
     Const C_OnlyRateOneTime As Boolean = False  ' 設定在同一次開啟程式時, 同一產品只可評價一次 (True = 只可評價一次 ... False = 可評價多次)
+
 
 
     '表單啟始時執行
@@ -91,6 +96,8 @@ Public Class Form1
             End
         End If
 
+        Call P_Login()
+
         ' 設定幾個按鈕的額外資訊
         ToolTip1.SetToolTip(BTreset, "Show all Records")
         ToolTip1.SetToolTip(BTpart, "Case Insensitive")
@@ -148,6 +155,59 @@ Public Class Form1
         Lbltotalnumber.DataBindings.Add("Text", MydbDataSetBindingSource, "totstar")  ' 列出已評分的總數
 
         PictureBox1.AllowDrop = True
+    End Sub
+
+
+    ' 登記/登入用戶
+    Private Sub P_Login()
+        Dim Goodbye As Boolean  ' 關閉程式(離開)
+
+        F3_Name = ""
+        F3_Password = ""
+        F3_Command = 0  ' 用作傳遞從 Form3 輸入的指令 ... 0=離開, 1=登記, 2=登入
+        Goodbye = False
+
+        ' 列出 .. 登記/登入 .. 的表格
+        Form3.ShowDialog()
+
+        If F3_Command = 0 Then
+            Goodbye = True  ' 關閉程式(離開)
+        Else
+            ' 先取得用戶名稱
+            SqlAdapter.SelectCommand = New MySqlCommand("Select * FROM user WHERE (username = '" & F3_Name & "')", MySqlConn)
+            SqlAdapter.Fill(MydbDataSet, "UserList")
+            SqlAdapter.SelectCommand.Dispose()
+
+            If F3_Command = 2 Then
+                ' 如果在客戶列表找不到用戶名 ... 或密碼不對 ... 或未經核准 ... 關閉程式(離開)
+                If (MydbDataSet.Tables("UserList").Rows.Count = 0) OrElse
+                 (MydbDataSet.Tables("UserList").Rows(0).Item("userpass") <> F3_Password) OrElse
+                 (MydbDataSet.Tables("UserList").Rows(0).Item("approved") = False) Then
+                    MessageBox.Show("Wrong Login Name/Password")
+                    Goodbye = True
+                End If
+            ElseIf F3_Command = 1 Then
+                If (MydbDataSet.Tables("UserList").Rows.Count = 0) Then
+                    ' 若未有之前已登記的用戶, 把新用戶資料, 加在資料表內
+                    Dim NQ_command As MySqlCommand = MySqlConn.CreateCommand  ' SQL 執行指令
+                    ' 資料表內容
+                    NQ_command.CommandText = "INSERT INTO user (username, userpass) VALUES ('" & F3_Name & "', '" & F3_Password & "')"
+                    NQ_command.ExecuteNonQuery()
+                    NQ_command.Dispose()
+
+                    MessageBox.Show("User Add, Waiting to Approve")
+                Else
+                    MessageBox.Show("User Name in used")
+                End If
+                Goodbye = True  ' 關閉程式(離開)
+            End If
+        End If
+
+        ' 關閉程式(離開)
+        If Goodbye Then
+            Call P_Dispose()  ' 先把資源釋放
+            End
+        End If
     End Sub
 
 
