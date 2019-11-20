@@ -21,6 +21,8 @@ Public Class Form1
     Public F3_Name As String  ' 用作傳遞從 Form3 輸入的 Name 資料
     Public F3_Password As String   ' 用作傳遞從 Form3 輸入的 Password 資料
     Public F3_Command As Int16   ' 用作傳遞從 Form3 輸入的指令 ... 0=離開, 1=登記, 2=登入
+    Public F4_FromMain As Boolean  ' 用作設定是否由主視窗 (Form1) 叫出選擇窗 (Form4)
+    Public F4_ReturnToMain As Boolean  ' 用作設定是否由選擇窗 (Form4), 返回主視窗 (Form1)
 
     ' 以下參數, 改回合用的
     Const C_SERVER As String = "LocalHost"  ' 資料庫位置 ... 便用時應改回 "LocalHost" 或 "127.0.0.1"
@@ -185,6 +187,10 @@ Public Class Form1
                  (MydbDataSet.Tables("UserList").Rows(0).Item("approved") = False) Then
                     MessageBox.Show("Wrong Login Name/Password")
                     Goodbye = True
+                Else
+                    F4_FromMain = False
+                    F4_ReturnToMain = False
+                    Form4.ShowDialog()
                 End If
             ElseIf F3_Command = 1 Then
                 If (MydbDataSet.Tables("UserList").Rows.Count = 0) Then
@@ -295,7 +301,7 @@ Public Class Form1
     End Sub
 
     ' 程式關閉, 把資源釋放
-    Private Sub P_Dispose()
+    Public Sub P_Dispose()
         MySqlConn.Close()
         MySqlConn.Dispose()
         MySqlConn = Nothing
@@ -408,4 +414,11 @@ Public Class Form1
         Call P_ShowRecord("productcategory = '" & ComboBox1.Text & "'")
     End Sub
 
+    ' 顯示選擇窗 (Form4)
+    Private Sub BtHome_Click(sender As Object, e As EventArgs) Handles BtHome.Click
+        F4_FromMain = True
+        F4_ReturnToMain = False
+        Form4.Show()
+        Me.Hide()
+    End Sub
 End Class

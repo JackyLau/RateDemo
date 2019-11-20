@@ -56,6 +56,7 @@ Partial Class Form1
         Me.Label9 = New System.Windows.Forms.Label()
         Me.TXTlocation = New System.Windows.Forms.TextBox()
         Me.Label10 = New System.Windows.Forms.Label()
+        Me.BtHome = New System.Windows.Forms.Button()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.MydbDataSetBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -326,11 +327,21 @@ Partial Class Form1
         Me.Label10.TabIndex = 29
         Me.Label10.Text = "Location :"
         '
+        'BtHome
+        '
+        Me.BtHome.Location = New System.Drawing.Point(12, 13)
+        Me.BtHome.Name = "BtHome"
+        Me.BtHome.Size = New System.Drawing.Size(54, 28)
+        Me.BtHome.TabIndex = 31
+        Me.BtHome.Text = "Home"
+        Me.BtHome.UseVisualStyleBackColor = True
+        '
         'Form1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(744, 505)
+        Me.Controls.Add(Me.BtHome)
         Me.Controls.Add(Me.TXTlocation)
         Me.Controls.Add(Me.Label10)
         Me.Controls.Add(Me.TXTcatagory)
@@ -405,4 +416,5 @@ Partial Class Form1
     Friend WithEvents Label9 As Label
     Friend WithEvents TXTlocation As TextBox
     Friend WithEvents Label10 As Label
+    Friend WithEvents BtHome As Button
 End Class
