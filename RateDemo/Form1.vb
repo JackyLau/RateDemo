@@ -7,6 +7,12 @@
 '#  Ver 1.0 ... 10/11/2019
 '###########################
 
+'Form1 ... 主表單 ... 作為列出所有產品
+'Form2 ... 評刻表單 ... 客戶給予評分
+'Form3 ... Login 表單 ... 客戶輸入 Name 及 Password
+'Form4 ... 各項功能表單 ... Login 後列出
+'Form5 ... 管理員用之批刻 (Approve) 表單
+
 Public Class Form1
 #Disable Warning IDE0069
     Public MySqlConn As New MySqlConnection  ' MySQL 的資料庫 Connection 物件
@@ -156,6 +162,8 @@ Public Class Form1
 
         Lbltotalnumber.DataBindings.Add("Text", MydbDataSetBindingSource, "totstar")  ' 列出已評分的總數
 
+        TxtName.DataBindings.Add("Text", MydbDataSet.Tables("UserList"), "username")
+
         PictureBox1.AllowDrop = True
     End Sub
 
@@ -188,6 +196,7 @@ Public Class Form1
                     MessageBox.Show("Wrong Login Name/Password")
                     Goodbye = True
                 Else
+                    ' 客戶已通過 用戶名 及 密碼 驗證 ... 可以執行程式
                     F4_FromMain = False
                     F4_ReturnToMain = False
                     Form4.ShowDialog()
@@ -268,6 +277,9 @@ Public Class Form1
                 If PictureBox1.Image IsNot Nothing Then PictureBox1.Image.Dispose()
                 PictureBox1.Image = Image.FromStream(New System.IO.MemoryStream(ImgBytes))
             End If
+
+            ' 設定是否可以投票 ... 若此用戶已投票於此產品, 不可以再投票
+            Button1.Enabled = (InStr(SQLdataRow.Item("rateduser").ToString, ("," & CStr(MydbDataSet.Tables("UserList").Rows(0).Item("userid")) & ",")) = 0)
         End If
     End Sub
 
@@ -275,7 +287,6 @@ Public Class Form1
     Private Sub DataGridView1_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles DataGridView1.CellClick
         If e.RowIndex <> -1 Then Call P_ShowPicture()  ' 若不是按了列表的頂部, 顯示圖片
     End Sub
-
 
     ' 顯示所有記錄
     Private Sub BTreset_Click(sender As Object, e As EventArgs) Handles BTreset.Click
@@ -332,6 +343,9 @@ Public Class Form1
             SQLdataRow = MydbDataSet.Tables(C_TABLE).Rows.Find(DataGridView1.CurrentRow.Cells("ID").Value)
             ' 在資料記錄內, 把已選取的 "評價星星" 數目加一
             SQLdataRow.Item("star" & CStr(F2_Rate)) += 1
+            ' 把已在此產品評價的客戶 ID 記錄
+            If (SQLdataRow.Item("rateduser") & "") = "" Then SQLdataRow.Item("rateduser") = ","
+            SQLdataRow.Item("rateduser") &= MydbDataSet.Tables("UserList").Rows(0).Item("userid") & ","
             ' 如果有寫入評語 (Comment), 加入一行新的評語 (加入於原有的評語下)
             If F2_Comment <> "" Then SQLdataRow.Item("comment") &= vbCrLf & F2_Comment
             ' 更新資料庫內容
@@ -342,6 +356,7 @@ Public Class Form1
             F2_Rate = 0
 
             SqlAdapter.Fill(MydbDataSet, C_TABLE)
+            Button1.Enabled = False
         End If
     End Sub
 
@@ -416,5 +431,9 @@ Public Class Form1
         F4_ReturnToMain = False
         Form4.Show()
         Me.Hide()
+    End Sub
+
+    Private Sub DataGridView1_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles DataGridView1.CellContentClick
+
     End Sub
 End Class

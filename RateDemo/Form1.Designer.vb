@@ -57,6 +57,8 @@ Partial Class Form1
         Me.TXTlocation = New System.Windows.Forms.TextBox()
         Me.Label10 = New System.Windows.Forms.Label()
         Me.BtHome = New System.Windows.Forms.Button()
+        Me.Label11 = New System.Windows.Forms.Label()
+        Me.TxtName = New System.Windows.Forms.TextBox()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.MydbDataSetBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -66,7 +68,7 @@ Partial Class Form1
         'Label1
         '
         Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(77, 21)
+        Me.Label1.Location = New System.Drawing.Point(77, 26)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(62, 12)
         Me.Label1.TabIndex = 0
@@ -156,7 +158,7 @@ Partial Class Form1
         'TXTproductID
         '
         Me.TXTproductID.Enabled = False
-        Me.TXTproductID.Location = New System.Drawing.Point(139, 17)
+        Me.TXTproductID.Location = New System.Drawing.Point(139, 21)
         Me.TXTproductID.Name = "TXTproductID"
         Me.TXTproductID.Size = New System.Drawing.Size(105, 22)
         Me.TXTproductID.TabIndex = 11
@@ -321,7 +323,7 @@ Partial Class Form1
         'Label10
         '
         Me.Label10.AutoSize = True
-        Me.Label10.Location = New System.Drawing.Point(295, 64)
+        Me.Label10.Location = New System.Drawing.Point(303, 64)
         Me.Label10.Name = "Label10"
         Me.Label10.Size = New System.Drawing.Size(52, 12)
         Me.Label10.TabIndex = 29
@@ -336,11 +338,30 @@ Partial Class Form1
         Me.BtHome.Text = "Home"
         Me.BtHome.UseVisualStyleBackColor = True
         '
+        'Label11
+        '
+        Me.Label11.AutoSize = True
+        Me.Label11.Location = New System.Drawing.Point(296, 26)
+        Me.Label11.Name = "Label11"
+        Me.Label11.Size = New System.Drawing.Size(59, 12)
+        Me.Label11.TabIndex = 32
+        Me.Label11.Text = "User Name:"
+        '
+        'TxtName
+        '
+        Me.TxtName.Enabled = False
+        Me.TxtName.Location = New System.Drawing.Point(357, 21)
+        Me.TxtName.Name = "TxtName"
+        Me.TxtName.Size = New System.Drawing.Size(116, 22)
+        Me.TxtName.TabIndex = 33
+        '
         'Form1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(744, 505)
+        Me.Controls.Add(Me.TxtName)
+        Me.Controls.Add(Me.Label11)
         Me.Controls.Add(Me.BtHome)
         Me.Controls.Add(Me.TXTlocation)
         Me.Controls.Add(Me.Label10)
@@ -373,7 +394,7 @@ Partial Class Form1
         Me.Controls.Add(Me.Label2)
         Me.Controls.Add(Me.Label1)
         Me.Name = "Form1"
-        Me.Text = "Form1"
+        Me.Text = "User Name:"
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.MydbDataSetBindingSource, System.ComponentModel.ISupportInitialize).EndInit()
@@ -417,4 +438,6 @@ Partial Class Form1
     Friend WithEvents TXTlocation As TextBox
     Friend WithEvents Label10 As Label
     Friend WithEvents BtHome As Button
+    Friend WithEvents Label11 As Label
+    Friend WithEvents TxtName As TextBox
 End Class
