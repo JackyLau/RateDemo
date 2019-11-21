@@ -9,9 +9,9 @@
 
 Public Class Form1
 #Disable Warning IDE0069
-    Private MySqlConn As New MySqlConnection  ' MySQL 的資料庫 Connection 物件
-    Private SqlAdapter As New MySqlDataAdapter ' MySQL 的資料庫 Adapter 物件
-    Private SqlCommand As New MySqlCommandBuilder ' MySQL 的資料庫 自動建立 Command 物件
+    Public MySqlConn As New MySqlConnection  ' MySQL 的資料庫 Connection 物件
+    Private ReadOnly SqlAdapter As New MySqlDataAdapter ' MySQL 的資料庫 Adapter 物件
+    Private ReadOnly SqlCommand As New MySqlCommandBuilder ' MySQL 的資料庫 自動建立 Command 物件
 #Enable Warning IDE0069
     Private ArrRated As New ArrayList ' 已評分
 
@@ -193,8 +193,8 @@ Public Class Form1
                     Form4.ShowDialog()
                 End If
             ElseIf F3_Command = 1 Then
+                ' 若未有之前已登記的用戶, 把新用戶資料, 加在資料表內
                 If (MydbDataSet.Tables("UserList").Rows.Count = 0) Then
-                    ' 若未有之前已登記的用戶, 把新用戶資料, 加在資料表內
                     Dim NQ_command As MySqlCommand = MySqlConn.CreateCommand  ' SQL 執行指令
                     ' 資料表內容
                     NQ_command.CommandText = "INSERT INTO user (username, userpass) VALUES ('" & F3_Name & "', '" & F3_Password & "')"
@@ -248,11 +248,11 @@ Public Class Form1
             SqlCommand.GetUpdateCommand()
         End If
 
-        If MydbDataSet.Tables(C_TABLE).Rows.Count > 0 Then Call P_ShowPicture(0)  ' 若有記錄, 顯示圖片
+        If MydbDataSet.Tables(C_TABLE).Rows.Count > 0 Then Call P_ShowPicture()  ' 若有記錄, 顯示圖片
     End Sub
 
     ' 顯示圖片 ..... V_row = 資料表的行號
-    Private Sub P_ShowPicture(ByVal V_row As Int16)
+    Private Sub P_ShowPicture()
         Dim SQLdataRow As DataRow  ' 一筆資料的記錄
 
         If DataGridView1.Rows.Count > 0 Then
@@ -273,7 +273,7 @@ Public Class Form1
 
     ' 已選取了一筆記錄, 把內容顯示出來
     Private Sub DataGridView1_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles DataGridView1.CellClick
-        If e.RowIndex <> -1 Then Call P_ShowPicture(e.RowIndex)  ' 若不是按了列表的頂部, 顯示圖片
+        If e.RowIndex <> -1 Then Call P_ShowPicture()  ' 若不是按了列表的頂部, 顯示圖片
     End Sub
 
 
@@ -304,13 +304,9 @@ Public Class Form1
     Public Sub P_Dispose()
         MySqlConn.Close()
         MySqlConn.Dispose()
-        MySqlConn = Nothing
         SqlAdapter.Dispose()
-        SqlAdapter = Nothing
         MydbDataSet.Dispose()
-        MydbDataSet = Nothing
         SqlCommand.Dispose()
-        SqlCommand = Nothing
         ArrRated = Nothing
     End Sub
 
