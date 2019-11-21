@@ -125,6 +125,11 @@ Public Class Form1
         DataGridView1.Columns.Add(New DataGridViewTextBoxColumn With {.Name = "Name", .DataPropertyName = "productname"})
         DataGridView1.Columns.Add(New DataGridViewTextBoxColumn With {.Name = "Price", .DataPropertyName = "price"})
 
+        ' 設定圖表 (Chart) 的參數
+        Chart1.Series.Clear()
+        Chart1.Series.Add("MyChart")
+        Chart1.Legends(0).Enabled = False
+
         ' 列出產品的分組 (productcategory) 於 ComboBox .... 方法二 (若用此方法, 可不需要用以下的方法一)
         SqlAdapter.SelectCommand = New MySqlCommand("Select productcategory FROM " & C_TABLE & " WHERE (productcategory != '') GROUP BY productcategory", MySqlConn)
         SqlAdapter.Fill(MydbDataSet, "CatagoryList")
@@ -199,7 +204,7 @@ Public Class Form1
                     If LoopCount < 5 Then ReCallLogin = True Else Goodbye = True
                 Else
                     ' 客戶已通過 用戶名 及 密碼 驗證 ... 可以執行程式
-                    F4_FromMain = False
+                    F4_FromMain = ReCallLogin
                     F4_ReturnToMain = False
                     Form4.ShowDialog()
                 End If
@@ -218,6 +223,8 @@ Public Class Form1
                     If LoopCount < 5 Then ReCallLogin = True
                 End If
                 Goodbye = True  ' 關閉程式(離開)
+            ElseIf F3_Command = 9 Then
+                Goodbye = False
             End If
         End If
 
@@ -270,6 +277,9 @@ Public Class Form1
     ' 顯示圖片 ..... V_row = 資料表的行號
     Private Sub P_ShowPicture()
         Dim SQLdataRow As DataRow  ' 一筆資料的記錄
+        Dim i As Int16  ' 圖表變數
+        Dim Cx() As String = {"5 Star", "4 Star", "3 Star", "2 Star", "1 Star"}  ' 圖表變數 .... 列表
+        Dim Cy(4) As Int16  ' 圖表變數 .... 內容數值
 
         If DataGridView1.Rows.Count > 0 Then
             ' 先取得現時的一筆資料的記錄
@@ -287,6 +297,12 @@ Public Class Form1
 
             ' 設定是否可以投票 ... 若此用戶已投票於此產品, 不可以再投票
             Button1.Enabled = (InStr(SQLdataRow.Item("rateduser").ToString, ("," & CStr(MydbDataSet.Tables("UserList").Rows(0).Item("userid")) & ",")) = 0)
+
+            ' 列出圖表 (Chart)
+            For i = 1 To 5
+                Cy(5 - i) = Int(100 / Val(SQLdataRow.Item("totstar").ToString) * Val(SQLdataRow.Item("star" & CStr(i)).ToString))
+            Next
+            Chart1.Series("MyChart").Points.DataBindXY(Cx, Cy)
         End If
     End Sub
 
@@ -437,4 +453,5 @@ Public Class Form1
         Form4.Show()
         Me.Hide()
     End Sub
+
 End Class

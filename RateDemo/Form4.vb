@@ -5,7 +5,8 @@
 
     ' 顯示主視窗 (Form1)
     Private Sub Button6_Click(sender As Object, e As EventArgs) Handles Button6.Click
-        If Form1.F4_FromMain Then Form1.Show()  ' 由主視窗 (Form1) 叫出此 Form 的 (Form4), 再 Show 回主視窗 (Form1) 
+        ' 由主視窗 (Form1) 叫出此 Form 的 (Form4), 再 Show 回主視窗 (Form1) 
+        If Form1.F4_FromMain Then Form1.Show()
         Form1.F4_ReturnToMain = True
         Me.Close()
     End Sub

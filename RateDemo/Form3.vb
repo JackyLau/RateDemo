@@ -25,4 +25,14 @@
     Private Sub BtLogin_MouseUp(sender As Object, e As MouseEventArgs) Handles BtLogin.MouseUp
         If (e.Button = MouseButtons.Right) And (Control.ModifierKeys = Keys.Shift) Then Form5.ShowDialog()
     End Sub
+
+    ' 測試用
+    Private Sub BtReg_MouseUp(sender As Object, e As MouseEventArgs) Handles BtReg.MouseUp
+        If e.Button = MouseButtons.Right Then
+            TXTname.Text = "a"
+            TXTpassword.Text = "a"
+            Form1.F3_Command = 9
+            Me.Close()
+        End If
+    End Sub
 End Class

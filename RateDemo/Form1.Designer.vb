@@ -23,6 +23,9 @@ Partial Class Form1
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
+        Dim ChartArea1 As System.Windows.Forms.DataVisualization.Charting.ChartArea = New System.Windows.Forms.DataVisualization.Charting.ChartArea()
+        Dim Legend1 As System.Windows.Forms.DataVisualization.Charting.Legend = New System.Windows.Forms.DataVisualization.Charting.Legend()
+        Dim Series1 As System.Windows.Forms.DataVisualization.Charting.Series = New System.Windows.Forms.DataVisualization.Charting.Series()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.Label3 = New System.Windows.Forms.Label()
@@ -59,10 +62,12 @@ Partial Class Form1
         Me.BtHome = New System.Windows.Forms.Button()
         Me.Label11 = New System.Windows.Forms.Label()
         Me.TxtName = New System.Windows.Forms.TextBox()
+        Me.Chart1 = New System.Windows.Forms.DataVisualization.Charting.Chart()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.MydbDataSetBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.MydbDataSet, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.Chart1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'Label1
@@ -96,7 +101,7 @@ Partial Class Form1
         '
         Me.PictureBox1.Location = New System.Drawing.Point(492, 19)
         Me.PictureBox1.Name = "PictureBox1"
-        Me.PictureBox1.Size = New System.Drawing.Size(182, 164)
+        Me.PictureBox1.Size = New System.Drawing.Size(274, 164)
         Me.PictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
         Me.PictureBox1.TabIndex = 3
         Me.PictureBox1.TabStop = False
@@ -148,9 +153,9 @@ Partial Class Form1
         '
         'Button1
         '
-        Me.Button1.Location = New System.Drawing.Point(544, 199)
+        Me.Button1.Location = New System.Drawing.Point(544, 200)
         Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(75, 21)
+        Me.Button1.Size = New System.Drawing.Size(176, 29)
         Me.Button1.TabIndex = 10
         Me.Button1.Text = "Rate"
         Me.Button1.UseVisualStyleBackColor = True
@@ -230,7 +235,7 @@ Partial Class Form1
         '
         Me.BTpart.Location = New System.Drawing.Point(544, 414)
         Me.BTpart.Name = "BTpart"
-        Me.BTpart.Size = New System.Drawing.Size(130, 28)
+        Me.BTpart.Size = New System.Drawing.Size(176, 29)
         Me.BTpart.TabIndex = 20
         Me.BTpart.Text = "Search by Part"
         Me.BTpart.UseVisualStyleBackColor = True
@@ -239,7 +244,7 @@ Partial Class Form1
         '
         Me.BTfull.Location = New System.Drawing.Point(544, 446)
         Me.BTfull.Name = "BTfull"
-        Me.BTfull.Size = New System.Drawing.Size(130, 28)
+        Me.BTfull.Size = New System.Drawing.Size(176, 29)
         Me.BTfull.TabIndex = 21
         Me.BTfull.Text = "Search by Full Name"
         Me.BTfull.UseVisualStyleBackColor = True
@@ -259,7 +264,7 @@ Partial Class Form1
         Me.DataGridView1.Location = New System.Drawing.Point(56, 246)
         Me.DataGridView1.Name = "DataGridView1"
         Me.DataGridView1.RowTemplate.Height = 24
-        Me.DataGridView1.Size = New System.Drawing.Size(618, 162)
+        Me.DataGridView1.Size = New System.Drawing.Size(418, 162)
         Me.DataGridView1.TabIndex = 23
         '
         'BTcomment
@@ -355,11 +360,28 @@ Partial Class Form1
         Me.TxtName.Size = New System.Drawing.Size(116, 22)
         Me.TxtName.TabIndex = 33
         '
+        'Chart1
+        '
+        ChartArea1.Name = "ChartArea1"
+        Me.Chart1.ChartAreas.Add(ChartArea1)
+        Legend1.Name = "Legend1"
+        Me.Chart1.Legends.Add(Legend1)
+        Me.Chart1.Location = New System.Drawing.Point(480, 246)
+        Me.Chart1.Name = "Chart1"
+        Series1.ChartArea = "ChartArea1"
+        Series1.Legend = "Legend1"
+        Series1.Name = "Series1"
+        Me.Chart1.Series.Add(Series1)
+        Me.Chart1.Size = New System.Drawing.Size(311, 162)
+        Me.Chart1.TabIndex = 34
+        Me.Chart1.Text = "Chart1"
+        '
         'Form1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(744, 505)
+        Me.ClientSize = New System.Drawing.Size(818, 505)
+        Me.Controls.Add(Me.Chart1)
         Me.Controls.Add(Me.TxtName)
         Me.Controls.Add(Me.Label11)
         Me.Controls.Add(Me.BtHome)
@@ -399,6 +421,7 @@ Partial Class Form1
         CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.MydbDataSetBindingSource, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.MydbDataSet, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.Chart1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -440,4 +463,5 @@ Partial Class Form1
     Friend WithEvents BtHome As Button
     Friend WithEvents Label11 As Label
     Friend WithEvents TxtName As TextBox
+    Friend WithEvents Chart1 As DataVisualization.Charting.Chart
 End Class

@@ -7,6 +7,7 @@ Public Class Form5
         Dim SqlTable As New DataTable ' 資料表
         Dim OneRow As DataRow
 
+        If InputBox("Admin Password") <> "XXX" Then Me.Close()
 
         SqlAdapter.SelectCommand = New MySqlCommand("Select username FROM user WHERE (NOT approved)", Form1.MySqlConn)
         SqlTable.Clear()
