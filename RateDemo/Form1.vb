@@ -171,6 +171,8 @@ Public Class Form1
     ' 登記/登入用戶
     Private Sub P_Login()
         Dim Goodbye As Boolean  ' 關閉程式(離開)
+        Dim ReCallLogin As Boolean
+        Static LoopCount As Int16
 
         F3_Name = ""
         F3_Password = ""
@@ -194,7 +196,7 @@ Public Class Form1
                  (MydbDataSet.Tables("UserList").Rows(0).Item("userpass") <> F3_Password) OrElse
                  (MydbDataSet.Tables("UserList").Rows(0).Item("approved") = False) Then
                     MessageBox.Show("Wrong Login Name/Password")
-                    Goodbye = True
+                    If LoopCount < 5 Then ReCallLogin = True Else Goodbye = True
                 Else
                     ' 客戶已通過 用戶名 及 密碼 驗證 ... 可以執行程式
                     F4_FromMain = False
@@ -213,13 +215,19 @@ Public Class Form1
                     MessageBox.Show("User Add, Waiting to Approve")
                 Else
                     MessageBox.Show("User Name in used")
+                    If LoopCount < 5 Then ReCallLogin = True
                 End If
                 Goodbye = True  ' 關閉程式(離開)
             End If
         End If
 
-        ' 關閉程式(離開)
-        If Goodbye Then
+        If ReCallLogin Then
+            ' 再回去叫出 Login 視窗
+            LoopCount += 1
+            MydbDataSet.Tables("UserList").Clear()
+            Call P_Login()
+        ElseIf Goodbye Then
+            ' 關閉程式(離開)
             Call P_Dispose()  ' 先把資源釋放
             End
         End If
@@ -228,7 +236,6 @@ Public Class Form1
 
     ' 顯示記錄 .... M_condition = 選取記錄條件
     Private Sub P_ShowRecord(ByVal M_condition As String)
-
         PictureBox1.Image = Nothing  ' 先把圖片回空白
 
         ' 按條件選取記錄 ... totstar 為已評分的總數
@@ -294,7 +301,6 @@ Public Class Form1
         TXTinput.Text = ""
         Call P_ShowRecord("True")
     End Sub
-
 
     ' 顯示產品名稱部份相同的記錄
     Private Sub BTpart_Click(sender As Object, e As EventArgs) Handles BTpart.Click
@@ -403,7 +409,6 @@ Public Class Form1
 
     ' 儲存該照片於現時記錄
     Private Sub P_SavePhoto()
-
         Dim Mstream As New System.IO.MemoryStream()  ' 照片的數碼內容 
         Dim ArrImage() As Byte  ' 照片的二進制資料陣列
         Dim SQLdataRow As DataRow  ' 一筆資料的記錄
@@ -431,9 +436,5 @@ Public Class Form1
         F4_ReturnToMain = False
         Form4.Show()
         Me.Hide()
-    End Sub
-
-    Private Sub DataGridView1_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles DataGridView1.CellContentClick
-
     End Sub
 End Class

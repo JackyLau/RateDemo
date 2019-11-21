@@ -7,6 +7,7 @@ Public Class Form5
         Dim SqlTable As New DataTable ' 資料表
         Dim OneRow As DataRow
 
+
         SqlAdapter.SelectCommand = New MySqlCommand("Select username FROM user WHERE (NOT approved)", Form1.MySqlConn)
         SqlTable.Clear()
         SqlAdapter.Fill(SqlTable)
@@ -14,12 +15,14 @@ Public Class Form5
         SqlAdapter.Dispose()
         SqlTable.Dispose()
 
+        LbName.Items.Clear()
+
         For Each OneRow In SqlTable.Rows
             LbName.Items.Add(OneRow.Item("username"))
         Next
     End Sub
 
-    ' 批刻 (Approve) 一個客戶
+    ' 批准 (Approve) 一個客戶
     Private Sub BtAppOne_Click(sender As Object, e As EventArgs) Handles BtAppOne.Click
         ' 把用戶設定為可以 Login (Approved)
         If LbName.Text <> "" Then
@@ -31,7 +34,7 @@ Public Class Form5
         End If
     End Sub
 
-    ' 批刻 (Approve) 所有客戶
+    ' 批准 (Approve) 所有客戶
     Private Sub BtAppALL_Click(sender As Object, e As EventArgs) Handles BtAppALL.Click
         Dim NQ_command As MySqlCommand = Form1.MySqlConn.CreateCommand  ' SQL 執行指令
         NQ_command.CommandText = "UPDATE user SET approved = TRUE WHERE (NOT approved)"
@@ -39,4 +42,5 @@ Public Class Form5
         NQ_command.Dispose()
         LbName.Items.Clear()
     End Sub
+
 End Class
