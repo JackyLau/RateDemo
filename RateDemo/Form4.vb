@@ -1,4 +1,28 @@
-﻿Public Class Form4
+﻿Imports System.Runtime.InteropServices
+
+Public Class Form4
+
+    '<DllImport("user32.dll", SetLastError:=True)>
+    'Private Shared Function EnableMenuItem(ByVal Menu As IntPtr, ByVal EnableItem As Integer, ByVal Enable As Integer) As Integer
+    'End Function
+
+    '<DllImport("user32.dll", CharSet:=CharSet.Unicode, SetLastError:=True, ExactSpelling:=True)>
+    'Private Shared Function GetSystemMenu(ByVal WindowHandle As IntPtr, ByVal Reset As Integer) As IntPtr
+    'End Function
+
+    Private Declare Function EnableMenuItem Lib "user32" (ByVal Menu As IntPtr, ByVal EnableItem As Integer, ByVal Enable As Integer) As Integer
+    Private Declare Function GetSystemMenu Lib "user32" (ByVal WindowHandle As IntPtr, ByVal Reset As Integer) As IntPtr
+
+    ' 不顯示視窗的關閉 "X" 按鈕 
+    Private Sub BtDisableX_Click(sender As Object, e As EventArgs) Handles BtDisableX.Click
+        EnableMenuItem(GetSystemMenu(Me.Handle, 0), &HF060, 1)
+    End Sub
+
+    ' 重新顯示視窗的關閉 "X" 按鈕 
+    Private Sub BtEnableX_Click(sender As Object, e As EventArgs) Handles BtEnableX.Click
+        EnableMenuItem(GetSystemMenu(Me.Handle, 0), &HF060, 0)
+    End Sub
+
     Private Sub Form4_Load(sender As Object, e As EventArgs) Handles Me.Load
         Form1.F4_ReturnToMain = False
     End Sub
