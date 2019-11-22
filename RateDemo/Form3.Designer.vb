@@ -28,11 +28,12 @@ Partial Class Form3
         Me.TXTname = New System.Windows.Forms.TextBox()
         Me.TXTpassword = New System.Windows.Forms.TextBox()
         Me.BtReg = New System.Windows.Forms.Button()
+        Me.BtShowPassword = New System.Windows.Forms.Button()
         Me.SuspendLayout()
         '
         'BtLogin
         '
-        Me.BtLogin.Location = New System.Drawing.Point(107, 120)
+        Me.BtLogin.Location = New System.Drawing.Point(107, 135)
         Me.BtLogin.Name = "BtLogin"
         Me.BtLogin.Size = New System.Drawing.Size(114, 25)
         Me.BtLogin.TabIndex = 0
@@ -42,7 +43,7 @@ Partial Class Form3
         'Label1
         '
         Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(64, 31)
+        Me.Label1.Location = New System.Drawing.Point(64, 46)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(35, 12)
         Me.Label1.TabIndex = 1
@@ -51,7 +52,7 @@ Partial Class Form3
         'Label2
         '
         Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(48, 72)
+        Me.Label2.Location = New System.Drawing.Point(48, 87)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(51, 12)
         Me.Label2.TabIndex = 2
@@ -59,32 +60,43 @@ Partial Class Form3
         '
         'TXTname
         '
-        Me.TXTname.Location = New System.Drawing.Point(109, 28)
+        Me.TXTname.Location = New System.Drawing.Point(109, 43)
         Me.TXTname.Name = "TXTname"
         Me.TXTname.Size = New System.Drawing.Size(112, 22)
         Me.TXTname.TabIndex = 3
         '
         'TXTpassword
         '
-        Me.TXTpassword.Location = New System.Drawing.Point(107, 69)
+        Me.TXTpassword.Location = New System.Drawing.Point(107, 84)
         Me.TXTpassword.Name = "TXTpassword"
         Me.TXTpassword.Size = New System.Drawing.Size(114, 22)
         Me.TXTpassword.TabIndex = 4
         '
         'BtReg
         '
-        Me.BtReg.Location = New System.Drawing.Point(39, 118)
+        Me.BtReg.Location = New System.Drawing.Point(39, 133)
         Me.BtReg.Name = "BtReg"
         Me.BtReg.Size = New System.Drawing.Size(59, 26)
         Me.BtReg.TabIndex = 5
         Me.BtReg.Text = "Register"
         Me.BtReg.UseVisualStyleBackColor = True
         '
+        'BtShowPassword
+        '
+        Me.BtShowPassword.BackColor = System.Drawing.SystemColors.Control
+        Me.BtShowPassword.Location = New System.Drawing.Point(111, 12)
+        Me.BtShowPassword.Name = "BtShowPassword"
+        Me.BtShowPassword.Size = New System.Drawing.Size(109, 22)
+        Me.BtShowPassword.TabIndex = 6
+        Me.BtShowPassword.Text = "Show Password"
+        Me.BtShowPassword.UseVisualStyleBackColor = False
+        '
         'Form3
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(275, 173)
+        Me.Controls.Add(Me.BtShowPassword)
         Me.Controls.Add(Me.BtReg)
         Me.Controls.Add(Me.TXTpassword)
         Me.Controls.Add(Me.TXTname)
@@ -104,4 +116,6 @@ Partial Class Form3
     Friend WithEvents TXTname As TextBox
     Friend WithEvents TXTpassword As TextBox
     Friend WithEvents BtReg As Button
+    Friend WithEvents BtShowPS As Button
+    Friend WithEvents BtShowPassword As Button
 End Class

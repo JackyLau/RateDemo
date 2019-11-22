@@ -19,4 +19,16 @@
             End
         End If
     End Sub
+
+    ' 關閉程式(完全離開) .... 再次重新啟動整個程式
+    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
+        Form1.F4_ReturnToMain = False
+        Process.Start("RateDemo.exe")
+        Me.Close()
+    End Sub
+
+    ' 列出附加表單
+    Private Sub Button4_Click(sender As Object, e As EventArgs) Handles Button4.Click
+        Form6.ShowDialog()
+    End Sub
 End Class

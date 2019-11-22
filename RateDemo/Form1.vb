@@ -1,4 +1,5 @@
-﻿Imports MySql.Data.MySqlClient
+﻿Imports System.ComponentModel
+Imports MySql.Data.MySqlClient
 
 '###########################
 '#  問卷輸入程式範例
@@ -12,6 +13,7 @@
 'Form3 ... Login 表單 ... 客戶輸入 Name 及 Password
 'Form4 ... 各項功能表單 ... Login 後列出
 'Form5 ... 管理員用之批刻 (Approve) 表單
+'Form6 ... 附加表單
 
 Public Class Form1
 #Disable Warning IDE0069
@@ -129,6 +131,7 @@ Public Class Form1
         Chart1.Series.Clear()
         Chart1.Series.Add("MyChart")
         Chart1.Legends(0).Enabled = False
+        'Chart1.Series("MyChart").ChartType = DataVisualization.Charting.SeriesChartType.Pie
 
         ' 列出產品的分組 (productcategory) 於 ComboBox .... 方法二 (若用此方法, 可不需要用以下的方法一)
         SqlAdapter.SelectCommand = New MySqlCommand("Select productcategory FROM " & C_TABLE & " WHERE (productcategory != '') GROUP BY productcategory", MySqlConn)
@@ -206,6 +209,7 @@ Public Class Form1
                     ' 客戶已通過 用戶名 及 密碼 驗證 ... 可以執行程式
                     F4_FromMain = ReCallLogin
                     F4_ReturnToMain = False
+                    LoopCount = 0
                     Form4.ShowDialog()
                 End If
             ElseIf F3_Command = 1 Then
@@ -223,6 +227,18 @@ Public Class Form1
                     If LoopCount < 5 Then ReCallLogin = True
                 End If
                 Goodbye = True  ' 關閉程式(離開)
+            ElseIf F3_Command = 4 Then
+                ' 如果在客戶列表找不到用戶名 ... 離開
+                If MydbDataSet.Tables("UserList").Rows.Count = 0 Then
+                    MessageBox.Show("No User Name Here")
+                Else
+                    ' 已找到用戶名... 列出密碼
+                    'MessageBox.Show(MydbDataSet.Tables("UserList").Rows(0).Item("userpass"))  ' 效果一
+                    'Form3.TXTname.Text &= " >>> " & MydbDataSet.Tables("UserList").Rows(0).Item("userpass")  ' 效果二
+                    Form3.BtShowPassword.Text = MydbDataSet.Tables("UserList").Rows(0).Item("userpass")  ' 效果三
+                    Form3.BtShowPassword.Enabled = False  ' 效果三
+                End If
+                If LoopCount < 5 Then ReCallLogin = True Else Goodbye = True
             ElseIf F3_Command = 9 Then
                 Goodbye = False
             End If
@@ -453,5 +469,4 @@ Public Class Form1
         Form4.Show()
         Me.Hide()
     End Sub
-
 End Class

@@ -36,7 +36,7 @@ Partial Class Form4
         Me.Button1.Name = "Button1"
         Me.Button1.Size = New System.Drawing.Size(90, 31)
         Me.Button1.TabIndex = 0
-        Me.Button1.Text = "Button1"
+        Me.Button1.Text = "Logout"
         Me.Button1.UseVisualStyleBackColor = True
         '
         'Button2

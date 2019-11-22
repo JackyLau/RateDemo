@@ -35,4 +35,14 @@
             Me.Close()
         End If
     End Sub
+
+    ' 查詢密碼
+    Private Sub BtShowPassword_Click(sender As Object, e As EventArgs) Handles BtShowPassword.Click
+        If (Trim(TXTname.Text) <> "") Then
+            Form1.F3_Command = 4
+            Me.Close()
+        Else
+            MessageBox.Show("Please Enter Username !!")
+        End If
+    End Sub
 End Class
