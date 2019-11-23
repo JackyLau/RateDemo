@@ -34,16 +34,16 @@
         ' 把已按下的 "評價星星" 按鈕的等級 (1-5) 記錄
         For i = 0 To 4
             If ArrButton(i).Enabled = False Then
-                Form1.F2_Rate = (i + 1)
+                F2_Rate = (i + 1)
                 Exit For
             End If
         Next
 
         ' 把評語 (comment) 記錄
-        If Trim(GunaTextBox1.Text) <> TextBoxDefault Then Form1.F2_Comment = Now() & " - " & Trim(GunaTextBox1.Text)
+        If Trim(GunaTextBox1.Text) <> TextBoxDefault Then F2_Comment = Now() & " - " & Trim(GunaTextBox1.Text)
 
         ' 必須要曾經評分, 才可交表格
-        If Form1.F2_Rate = 0 Then
+        If F2_Rate = 0 Then
             MessageBox.Show("Rate before submit please")
         Else
             Me.Close()   ' 返回

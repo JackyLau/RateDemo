@@ -50,9 +50,7 @@ Partial Class Form1
         Me.BTreset = New System.Windows.Forms.Button()
         Me.DataGridView1 = New System.Windows.Forms.DataGridView()
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
-        Me.MydbDataSetBindingSource = New System.Windows.Forms.BindingSource(Me.components)
         Me.BTcomment = New System.Windows.Forms.Button()
-        Me.MydbDataSet = New WindowsApplication2.mydbDataSet()
         Me.ComboBox1 = New System.Windows.Forms.ComboBox()
         Me.Lbltotalnumber = New System.Windows.Forms.Label()
         Me.TXTcatagory = New System.Windows.Forms.TextBox()
@@ -63,11 +61,13 @@ Partial Class Form1
         Me.Label11 = New System.Windows.Forms.Label()
         Me.TxtName = New System.Windows.Forms.TextBox()
         Me.Chart1 = New System.Windows.Forms.DataVisualization.Charting.Chart()
+        Me.MydbDataSetBindingSourceQQ = New System.Windows.Forms.BindingSource(Me.components)
+        Me.MydbDataSetQQ = New WindowsApplication2.mydbDataSet()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.MydbDataSetBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.MydbDataSet, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.Chart1, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.MydbDataSetBindingSourceQQ, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.MydbDataSetQQ, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'Label1
@@ -276,11 +276,6 @@ Partial Class Form1
         Me.BTcomment.Text = "Display Comment"
         Me.BTcomment.UseVisualStyleBackColor = True
         '
-        'MydbDataSet
-        '
-        Me.MydbDataSet.DataSetName = "mydbDataSet"
-        Me.MydbDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema
-        '
         'ComboBox1
         '
         Me.ComboBox1.FormattingEnabled = True
@@ -376,6 +371,11 @@ Partial Class Form1
         Me.Chart1.TabIndex = 37
         Me.Chart1.Text = "Chart1"
         '
+        'MydbDataSetQQ
+        '
+        Me.MydbDataSetQQ.DataSetName = "mydbDataSet"
+        Me.MydbDataSetQQ.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema
+        '
         'Form1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
@@ -419,9 +419,9 @@ Partial Class Form1
         Me.Text = "User Name:"
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.MydbDataSetBindingSource, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.MydbDataSet, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.Chart1, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.MydbDataSetBindingSourceQQ, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.MydbDataSetQQ, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -451,9 +451,9 @@ Partial Class Form1
     Friend WithEvents BTreset As Button
     Friend WithEvents DataGridView1 As DataGridView
     Friend WithEvents ToolTip1 As ToolTip
-    Friend WithEvents MydbDataSetBindingSource As BindingSource
+    Friend WithEvents MydbDataSetBindingSourceQQ As BindingSource
     Friend WithEvents BTcomment As Button
-    Friend WithEvents MydbDataSet As mydbDataSet
+    Friend WithEvents MydbDataSetQQ As mydbDataSet
     Friend WithEvents ComboBox1 As ComboBox
     Friend WithEvents Lbltotalnumber As Label
     Friend WithEvents TXTcatagory As TextBox

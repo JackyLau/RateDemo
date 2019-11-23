@@ -9,7 +9,7 @@ Public Class Form5
 
         If InputBox("Admin Password") <> "XXX" Then Me.Close()
 
-        SqlAdapter.SelectCommand = New MySqlCommand("Select username FROM user WHERE (NOT approved)", Form1.MySqlConn)
+        SqlAdapter.SelectCommand = New MySqlCommand("Select username FROM user WHERE (NOT approved)", MySqlConn)
         SqlTable.Clear()
         SqlAdapter.Fill(SqlTable)
         SqlAdapter.SelectCommand.Dispose()
@@ -27,7 +27,7 @@ Public Class Form5
     Private Sub BtAppOne_Click(sender As Object, e As EventArgs) Handles BtAppOne.Click
         ' 把用戶設定為可以 Login (Approved)
         If LbName.Text <> "" Then
-            Dim NQ_command As MySqlCommand = Form1.MySqlConn.CreateCommand  ' SQL 執行指令
+            Dim NQ_command As MySqlCommand = MySqlConn.CreateCommand  ' SQL 執行指令
             NQ_command.CommandText = "UPDATE user SET approved = TRUE WHERE (username = '" & LbName.Text & "')"
             NQ_command.ExecuteNonQuery()
             NQ_command.Dispose()
@@ -37,7 +37,7 @@ Public Class Form5
 
     ' 批准 (Approve) 所有客戶
     Private Sub BtAppALL_Click(sender As Object, e As EventArgs) Handles BtAppALL.Click
-        Dim NQ_command As MySqlCommand = Form1.MySqlConn.CreateCommand  ' SQL 執行指令
+        Dim NQ_command As MySqlCommand = MySqlConn.CreateCommand  ' SQL 執行指令
         NQ_command.CommandText = "UPDATE user SET approved = TRUE WHERE (NOT approved)"
         NQ_command.ExecuteNonQuery()
         NQ_command.Dispose()
