@@ -23,12 +23,9 @@ Partial Class FmProductList
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
-        Dim ChartArea2 As System.Windows.Forms.DataVisualization.Charting.ChartArea = New System.Windows.Forms.DataVisualization.Charting.ChartArea()
-        Dim Legend2 As System.Windows.Forms.DataVisualization.Charting.Legend = New System.Windows.Forms.DataVisualization.Charting.Legend()
-        Dim Series2 As System.Windows.Forms.DataVisualization.Charting.Series = New System.Windows.Forms.DataVisualization.Charting.Series()
-        Dim ChartArea3 As System.Windows.Forms.DataVisualization.Charting.ChartArea = New System.Windows.Forms.DataVisualization.Charting.ChartArea()
-        Dim Legend3 As System.Windows.Forms.DataVisualization.Charting.Legend = New System.Windows.Forms.DataVisualization.Charting.Legend()
-        Dim Series3 As System.Windows.Forms.DataVisualization.Charting.Series = New System.Windows.Forms.DataVisualization.Charting.Series()
+        Dim ChartArea1 As System.Windows.Forms.DataVisualization.Charting.ChartArea = New System.Windows.Forms.DataVisualization.Charting.ChartArea()
+        Dim Legend1 As System.Windows.Forms.DataVisualization.Charting.Legend = New System.Windows.Forms.DataVisualization.Charting.Legend()
+        Dim Series1 As System.Windows.Forms.DataVisualization.Charting.Series = New System.Windows.Forms.DataVisualization.Charting.Series()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.Label3 = New System.Windows.Forms.Label()
@@ -66,13 +63,11 @@ Partial Class FmProductList
         Me.Chart1 = New System.Windows.Forms.DataVisualization.Charting.Chart()
         Me.MydbDataSetBindingSourceQQ = New System.Windows.Forms.BindingSource(Me.components)
         Me.MydbDataSetQQ = New WindowsApplication2.mydbDataSet()
-        Me.Chart2 = New System.Windows.Forms.DataVisualization.Charting.Chart()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.Chart1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.MydbDataSetBindingSourceQQ, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.MydbDataSetQQ, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.Chart2, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'Label1
@@ -106,7 +101,7 @@ Partial Class FmProductList
         '
         Me.PictureBox1.Location = New System.Drawing.Point(492, 19)
         Me.PictureBox1.Name = "PictureBox1"
-        Me.PictureBox1.Size = New System.Drawing.Size(274, 164)
+        Me.PictureBox1.Size = New System.Drawing.Size(281, 164)
         Me.PictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
         Me.PictureBox1.TabIndex = 3
         Me.PictureBox1.TabStop = False
@@ -294,7 +289,7 @@ Partial Class FmProductList
         Me.Lbltotalnumber.AutoSize = True
         Me.Lbltotalnumber.Font = New System.Drawing.Font("Nirmala UI", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Lbltotalnumber.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.Lbltotalnumber.Location = New System.Drawing.Point(11, 194)
+        Me.Lbltotalnumber.Location = New System.Drawing.Point(11, 192)
         Me.Lbltotalnumber.Name = "Lbltotalnumber"
         Me.Lbltotalnumber.Size = New System.Drawing.Size(62, 25)
         Me.Lbltotalnumber.TabIndex = 26
@@ -362,16 +357,16 @@ Partial Class FmProductList
         '
         'Chart1
         '
-        ChartArea2.Name = "ChartArea1"
-        Me.Chart1.ChartAreas.Add(ChartArea2)
-        Legend2.Name = "Legend1"
-        Me.Chart1.Legends.Add(Legend2)
+        ChartArea1.Name = "ChartArea1"
+        Me.Chart1.ChartAreas.Add(ChartArea1)
+        Legend1.Name = "Legend1"
+        Me.Chart1.Legends.Add(Legend1)
         Me.Chart1.Location = New System.Drawing.Point(480, 249)
         Me.Chart1.Name = "Chart1"
-        Series2.ChartArea = "ChartArea1"
-        Series2.Legend = "Legend1"
-        Series2.Name = "Series1"
-        Me.Chart1.Series.Add(Series2)
+        Series1.ChartArea = "ChartArea1"
+        Series1.Legend = "Legend1"
+        Series1.Name = "Series1"
+        Me.Chart1.Series.Add(Series1)
         Me.Chart1.Size = New System.Drawing.Size(314, 158)
         Me.Chart1.TabIndex = 37
         Me.Chart1.Text = "Chart1"
@@ -381,28 +376,11 @@ Partial Class FmProductList
         Me.MydbDataSetQQ.DataSetName = "mydbDataSet"
         Me.MydbDataSetQQ.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema
         '
-        'Chart2
-        '
-        ChartArea3.Name = "ChartArea1"
-        Me.Chart2.ChartAreas.Add(ChartArea3)
-        Legend3.Name = "Legend1"
-        Me.Chart2.Legends.Add(Legend3)
-        Me.Chart2.Location = New System.Drawing.Point(515, 472)
-        Me.Chart2.Name = "Chart2"
-        Series3.ChartArea = "ChartArea1"
-        Series3.Legend = "Legend1"
-        Series3.Name = "Series1"
-        Me.Chart2.Series.Add(Series3)
-        Me.Chart2.Size = New System.Drawing.Size(300, 300)
-        Me.Chart2.TabIndex = 38
-        Me.Chart2.Text = "Chart2"
-        '
         'FmProductList
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(826, 505)
-        Me.Controls.Add(Me.Chart2)
         Me.Controls.Add(Me.Chart1)
         Me.Controls.Add(Me.TxtName)
         Me.Controls.Add(Me.Label11)
@@ -444,7 +422,6 @@ Partial Class FmProductList
         CType(Me.Chart1, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.MydbDataSetBindingSourceQQ, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.MydbDataSetQQ, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.Chart2, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -487,5 +464,4 @@ Partial Class FmProductList
     Friend WithEvents Label11 As Label
     Friend WithEvents TxtName As TextBox
     Friend WithEvents Chart1 As DataVisualization.Charting.Chart
-    Friend WithEvents Chart2 As DataVisualization.Charting.Chart
 End Class

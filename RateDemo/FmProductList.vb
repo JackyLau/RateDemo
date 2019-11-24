@@ -77,8 +77,6 @@ Public Class FmProductList
         PictureBox1.AllowDrop = True
     End Sub
 
-
-
     ' 顯示記錄 .... M_condition = 選取記錄條件
     Private Sub P_ShowRecord(ByVal M_condition As String)
         PictureBox1.Image = Nothing  ' 先把圖片回空白

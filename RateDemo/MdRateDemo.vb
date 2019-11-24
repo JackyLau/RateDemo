@@ -15,7 +15,7 @@
 'Form6 ... 附加表單
 'Form7 ... 啟始表單
 
-Module Module1
+Module MdRateDemo
 #Disable Warning IDE0069
     Public MySqlConn As New MySqlConnection  ' MySQL 的資料庫 Connection 物件
     Public SqlAdapter As New MySqlDataAdapter ' MySQL 的資料庫 Adapter 物件
