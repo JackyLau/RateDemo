@@ -22,8 +22,8 @@ Public Class Form3
                 Me.Close()
             Else
                 MessageBox.Show("User Name in used")
-                LoopCount += 1
-                If LoopCount > 5 Then Me.Close()
+                If C_CountExit > 0 Then LoopCount += 1
+                If LoopCount > C_CountExit Then Me.Close()
             End If
         End If
     End Sub
@@ -38,15 +38,14 @@ Public Class Form3
                  (SqlTable.Rows(0).Item("userpass") <> TXTpassword.Text) OrElse
                  (SqlTable.Rows(0).Item("approved") = False) Then
                 MessageBox.Show("Wrong Login Name/Password")
-                LoopCount += 1
-                If LoopCount > 5 Then Me.Close()
+                If C_CountExit > 0 Then LoopCount += 1
+                If LoopCount > C_CountExit Then Me.Close()
             Else
                 ' 客戶已通過 用戶名 及 密碼 驗證 ... 可以執行程式
                 CurUserID = SqlTable.Rows(0).Item("userid")
                 CurUserName = SqlTable.Rows(0).Item("username")
                 LoopCount = 0
-                SelectFormToOpen = 4
-                '                Form4.Show()
+                Form4.Show()
                 Me.Close()
             End If
         Else
@@ -63,7 +62,6 @@ Public Class Form3
     Private Sub BtLogin_MouseUp(sender As Object, e As MouseEventArgs) Handles BtLogin.MouseUp
         If (e.Button = MouseButtons.Right) And (Control.ModifierKeys = Keys.Shift) Then
             Form5.ShowDialog()
-            'SelectFormToOpen = 5
             'Me.Close()
         End If
     End Sub
@@ -107,7 +105,6 @@ Public Class Form3
 
 
     Private Sub Form3_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        SelectFormToOpen = 0
         TXTname.Text = ""
         TXTpassword.Text = ""
     End Sub

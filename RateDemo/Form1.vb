@@ -1,27 +1,11 @@
 ﻿Imports System.ComponentModel
 Imports MySql.Data.MySqlClient
 
-'###########################
-'#  問卷輸入程式範例
-'#  Programmer: Jacky Lau
-'#  jackylau@yahoo.com
-'#  Ver 1.0 ... 10/11/2019
-'###########################
-
-'Form1 ... 主表單 ... 作為列出所有產品
-'Form2 ... 評刻表單 ... 客戶給予評分
-'Form3 ... Login 表單 ... 客戶輸入 Name 及 Password
-'Form4 ... 各項功能表單 ... Login 後列出
-'Form5 ... 管理員用之批刻 (Approve) 表單
-'Form6 ... 附加表單
-
 Public Class Form1
-
+    Dim ArrRated As New ArrayList ' 已評分
 
     '表單啟始時執行
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        SelectFormToOpen = 4
-
         ' 設定幾個按鈕的額外資訊
         ToolTip1.SetToolTip(BTreset, "Show all Records")
         ToolTip1.SetToolTip(BTpart, "Case Insensitive")
@@ -186,9 +170,9 @@ Public Class Form1
     Private Sub Form1_Closed(sender As Object, e As EventArgs) Handles Me.Closed
         ' 程式關閉, 把資源釋放
         MydbDataSetQQ.Dispose()
-        'MydbDataSetBindingSourceQQ.Dispose()
+        MydbDataSetBindingSourceQQ.Dispose()
         ArrRated = Nothing
-        'Form4.Show()
+        Form4.Show()
     End Sub
 
     ' 去 Form2 表單, 輸入內容
@@ -296,9 +280,6 @@ Public Class Form1
 
     ' 顯示選擇窗 (Form4)
     Private Sub BtHome_Click(sender As Object, e As EventArgs) Handles BtHome.Click
-        SelectFormToOpen = 4
-        '        Form4.Show()
         Me.Close()
     End Sub
-
 End Class

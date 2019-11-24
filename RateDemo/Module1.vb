@@ -1,17 +1,29 @@
 ﻿Imports MySql.Data.MySqlClient
 
+'###########################
+'#  問卷輸入程式範例
+'#  Programmer: Jacky Lau
+'#  jackylau@yahoo.com
+'#  Ver 1.0 ... 10/11/2019
+'###########################
+
+'Form1 ... 主表單 ... 作為列出所有產品
+'Form2 ... 評刻表單 ... 客戶給予評分
+'Form3 ... Login 表單 ... 客戶輸入 Name 及 Password
+'Form4 ... 各項功能表單 ... Login 後列出
+'Form5 ... 管理員用之批刻 (Approve) 表單
+'Form6 ... 附加表單
+'Form7 ... 啟始表單
+
 Module Module1
 #Disable Warning IDE0069
     Public MySqlConn As New MySqlConnection  ' MySQL 的資料庫 Connection 物件
     Public SqlAdapter As New MySqlDataAdapter ' MySQL 的資料庫 Adapter 物件
     Public SqlCommand As New MySqlCommandBuilder ' MySQL 的資料庫 自動建立 Command 物件
 #Enable Warning IDE0069
-    Public ArrRated As New ArrayList ' 已評分
-
     Public F2_Comment As String  ' 用作傳遞從 Form2 輸入的 Comment 資料
     Public F2_Rate As Int16  ' 用作傳遞從 Form2 輸入的 星號評價 資料
 
-    Public SelectFormToOpen As Int16
     Public CurUserID As Int16
     Public CurUserName As String
 
@@ -22,11 +34,10 @@ Module Module1
     Public Const C_DATABASE As String = "mydb"  ' 資料庫名稱
     Public Const C_TABLE As String = "product"  ' 資料表名稱
     Public Const C_OnlyRateOneTime As Boolean = False  ' 設定在同一次開啟程式時, 同一產品只可評價一次 (True = 只可評價一次 ... False = 可評價多次)
+    Public Const C_CountExit As Int16 = 5  ' 設定離開程式可以錯誤的密碼次數  (0=無限次)
 
     Public MydbDataSet As New DataSet
     Public MydbDataSetBindingSource As New BindingSource
-
-    Public xxx As Boolean
 
     Sub Main()
         Dim vLine() As String  ' 資料庫接入資訊
@@ -93,30 +104,10 @@ Module Module1
             End
         End If
 
+        Form4.StartPosition = FormStartPosition.CenterScreen
+        Form3.StartPosition = FormStartPosition.CenterScreen
+
         Form3.ShowDialog()
-        Call P_SelectForm()
-    End Sub
-
-
-    Public Sub P_SelectForm()
-        Select Case SelectFormToOpen
-            Case 1
-                Form1.ShowDialog()
-            Case 2
-                Form2.ShowDialog()
-            Case 3
-                Form3.ShowDialog()
-            Case 4
-                Form4.ShowDialog()
-            Case 5
-                Form5.ShowDialog()
-            Case 6
-                Form6.ShowDialog()
-            Case Else
-                Call P_Dispose()
-        End Select
-
-        If (SelectFormToOpen <> 0) And (SelectFormToOpen < 7) Then Call P_SelectForm()
     End Sub
 
 
@@ -127,7 +118,6 @@ Module Module1
         SqlAdapter.Dispose()
         MydbDataSet.Dispose()
         SqlCommand.Dispose()
-        ArrRated = Nothing
     End Sub
 End Module
 

@@ -26,31 +26,24 @@ Public Class Form4
 
     ' 關閉程式(完全離開) .... 再次重新啟動整個程式
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
-        SelectFormToOpen = 1
-        '        Form1.Show()
+        Form1.Show()
         Me.Close()
     End Sub
 
     ' 關閉程式(完全離開) .... 再次重新啟動整個程式
     Private Sub Button3_Click(sender As Object, e As EventArgs) Handles Button3.Click
-        SelectFormToOpen = 3
-        '        Form3.Show()
+        Form3.Show()
         Me.Close()
     End Sub
 
     ' 沒有使用
     Private Sub Button4_Click(sender As Object, e As EventArgs) Handles Button4.Click
-        SelectFormToOpen = 0
         'Me.Close()
     End Sub
 
     ' 顯示 Option 視窗 (Form6)
     Private Sub Button6_Click(sender As Object, e As EventArgs) Handles Button6.Click
-        SelectFormToOpen = 6
+        Form6.Show()
         Me.Close()
-    End Sub
-
-    Private Sub Form4_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        SelectFormToOpen = 0
     End Sub
 End Class
