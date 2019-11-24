@@ -1,5 +1,5 @@
 ﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
-Partial Class Form6
+Partial Class FmStartUp
     Inherits System.Windows.Forms.Form
 
     'Form 覆寫 Dispose 以清除元件清單。
@@ -22,29 +22,16 @@ Partial Class Form6
     '請勿使用程式碼編輯器進行修改。
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Me.BtClose = New System.Windows.Forms.Button()
         Me.SuspendLayout()
         '
-        'BtClose
-        '
-        Me.BtClose.Location = New System.Drawing.Point(66, 55)
-        Me.BtClose.Name = "BtClose"
-        Me.BtClose.Size = New System.Drawing.Size(153, 41)
-        Me.BtClose.TabIndex = 0
-        Me.BtClose.Text = "Close"
-        Me.BtClose.UseVisualStyleBackColor = True
-        '
-        'Form6
+        'FmStartUp
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(303, 162)
-        Me.Controls.Add(Me.BtClose)
-        Me.Name = "Form6"
-        Me.Text = "Form6"
+        Me.ClientSize = New System.Drawing.Size(320, 116)
+        Me.Name = "FmStartUp"
+        Me.Text = "StartUp"
         Me.ResumeLayout(False)
 
     End Sub
-
-    Friend WithEvents BtClose As Button
 End Class

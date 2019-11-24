@@ -1,6 +1,6 @@
 ﻿Imports MySql.Data.MySqlClient
 
-Public Class Form3
+Public Class FmLogin
 #Disable Warning IDE0069
     ReadOnly SqlTable As New DataTable ' 資料表
 #Enable Warning IDE0069
@@ -22,6 +22,7 @@ Public Class Form3
                 Me.Close()
             Else
                 MessageBox.Show("User Name in used")
+                ' 限定次數離開程式
                 If C_CountExit > 0 Then LoopCount += 1
                 If LoopCount > C_CountExit Then Me.Close()
             End If
@@ -38,6 +39,7 @@ Public Class Form3
                  (SqlTable.Rows(0).Item("userpass") <> TXTpassword.Text) OrElse
                  (SqlTable.Rows(0).Item("approved") = False) Then
                 MessageBox.Show("Wrong Login Name/Password")
+                ' 限定次數離開程式
                 If C_CountExit > 0 Then LoopCount += 1
                 If LoopCount > C_CountExit Then Me.Close()
             Else
@@ -45,7 +47,7 @@ Public Class Form3
                 CurUserID = SqlTable.Rows(0).Item("userid")
                 CurUserName = SqlTable.Rows(0).Item("username")
                 LoopCount = 0
-                Form4.Show()
+                FmSelection.Show()
                 Me.Close()
             End If
         Else
@@ -58,10 +60,11 @@ Public Class Form3
         SqlTable.Dispose()
     End Sub
 
-    ' 列出 Approve 表單
+    ' 列出 Approve 表單, 供管理員 (Admin) 確認客戶可以登入
     Private Sub BtLogin_MouseUp(sender As Object, e As MouseEventArgs) Handles BtLogin.MouseUp
         If (e.Button = MouseButtons.Right) And (Control.ModifierKeys = Keys.Shift) Then
-            Form5.ShowDialog()
+            FmApprove.ShowDialog()
+            'FmApprove.Show()
             'Me.Close()
         End If
     End Sub
@@ -85,25 +88,25 @@ Public Class Form3
                 MessageBox.Show("No User Name Here")
             Else
                 ' 已找到用戶名... 列出密碼
-                'MessageBox.Show(SqlTable.Rows(0).Item("userpass"))  ' 效果一
-                TXTname.Text &= " >>> " & SqlTable.Rows(0).Item("userpass")  ' 效果二
-                'BtShowPassword.Text = SqlTable.Rows(0).Item("userpass")  ' 效果三
-                'BtShowPassword.Enabled = False  ' 效果三
+                'MessageBox.Show(SqlTable.Rows(0).Item("userpass"))  ' 效果一, 用 MsgBox 列出
+                TXTname.Text &= " >>> " & SqlTable.Rows(0).Item("userpass")  ' 效果二, 顯示在 UserName 後
+                'BtShowPassword.Text = SqlTable.Rows(0).Item("userpass")  ' 效果三,  顯示在此按鈕上
+                'BtShowPassword.Enabled = False  ' 效果三, 令此按鈕再不可以按
             End If
         Else
             MessageBox.Show("Please Enter Username !!")
         End If
     End Sub
 
+    ' 從資料庫取得用戶名稱
     Private Sub P_OpenTable()
-        ' 先取得用戶名稱
         SqlTable.Clear()
         SqlAdapter.SelectCommand = New MySqlCommand("Select * FROM user WHERE (username = '" & TXTname.Text & "')", MySqlConn)
         SqlAdapter.Fill(SqlTable)
         SqlAdapter.SelectCommand.Dispose()
     End Sub
 
-
+    ' 表單開啟時, 文字清空
     Private Sub Form3_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         TXTname.Text = ""
         TXTpassword.Text = ""

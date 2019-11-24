@@ -1,6 +1,6 @@
 ﻿Imports MySql.Data.MySqlClient
 
-Public Class Form5
+Public Class FmApprove
     ' 準備列出所有尚未 Approve 的客戶名
     Private Sub Form5_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Dim SqlAdapter As New MySqlDataAdapter ' MySQL 的資料庫 Adapter 物件
@@ -43,5 +43,4 @@ Public Class Form5
         NQ_command.Dispose()
         LbName.Items.Clear()
     End Sub
-
 End Class

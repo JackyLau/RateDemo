@@ -1,5 +1,5 @@
 ﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
-Partial Class Form5
+Partial Class FmApprove
     Inherits System.Windows.Forms.Form
 
     'Form 覆寫 Dispose 以清除元件清單。
@@ -54,7 +54,7 @@ Partial Class Form5
         Me.BtAppOne.Text = "Approve Select One"
         Me.BtAppOne.UseVisualStyleBackColor = True
         '
-        'Form5
+        'FmApprove
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
@@ -62,8 +62,8 @@ Partial Class Form5
         Me.Controls.Add(Me.BtAppOne)
         Me.Controls.Add(Me.BtAppALL)
         Me.Controls.Add(Me.LbName)
-        Me.Name = "Form5"
-        Me.Text = "Form5"
+        Me.Name = "FmApprove"
+        Me.Text = "Approve"
         Me.ResumeLayout(False)
 
     End Sub

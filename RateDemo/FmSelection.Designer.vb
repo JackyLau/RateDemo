@@ -1,5 +1,5 @@
 ﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
-Partial Class Form4
+Partial Class FmSelection
     Inherits System.Windows.Forms.Form
 
     'Form 覆寫 Dispose 以清除元件清單。
@@ -22,12 +22,14 @@ Partial Class Form4
     '請勿使用程式碼編輯器進行修改。
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
+        Me.components = New System.ComponentModel.Container()
         Me.Button1 = New System.Windows.Forms.Button()
         Me.BtDisableX = New System.Windows.Forms.Button()
         Me.Button3 = New System.Windows.Forms.Button()
         Me.Button4 = New System.Windows.Forms.Button()
         Me.BtEnableX = New System.Windows.Forms.Button()
         Me.Button6 = New System.Windows.Forms.Button()
+        Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
         Me.SuspendLayout()
         '
         'Button1
@@ -84,7 +86,10 @@ Partial Class Form4
         Me.Button6.Text = "Option (6)"
         Me.Button6.UseVisualStyleBackColor = True
         '
-        'Form4
+        'Timer1
+        '
+        '
+        'FmSelection
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
@@ -95,8 +100,9 @@ Partial Class Form4
         Me.Controls.Add(Me.Button3)
         Me.Controls.Add(Me.BtDisableX)
         Me.Controls.Add(Me.Button1)
-        Me.Name = "Form4"
-        Me.Text = "Form4"
+        Me.Name = "FmSelection"
+        Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
+        Me.Text = "Selection"
         Me.ResumeLayout(False)
 
     End Sub
@@ -107,4 +113,5 @@ Partial Class Form4
     Friend WithEvents Button4 As Button
     Friend WithEvents BtEnableX As Button
     Friend WithEvents Button6 As Button
+    Friend WithEvents Timer1 As Timer
 End Class

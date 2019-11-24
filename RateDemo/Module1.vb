@@ -24,8 +24,8 @@ Module Module1
     Public F2_Comment As String  ' 用作傳遞從 Form2 輸入的 Comment 資料
     Public F2_Rate As Int16  ' 用作傳遞從 Form2 輸入的 星號評價 資料
 
-    Public CurUserID As Int16
-    Public CurUserName As String
+    Public CurUserID As Int16  ' 用作傳遞從 Form1 輸入的用戶 ID 資料
+    Public CurUserName As String  ' 用作傳遞從 Form1 輸入的用戶名稱 資料
 
     ' 以下參數, 改回合用的
     Public Const C_SERVER As String = "LocalHost"  ' 資料庫位置 ... 便用時應改回 "LocalHost" 或 "127.0.0.1"
@@ -33,11 +33,12 @@ Module Module1
     Public Const C_PASSWORD As String = "OnePassWord"  ' 資料庫 Login 密碼
     Public Const C_DATABASE As String = "mydb"  ' 資料庫名稱
     Public Const C_TABLE As String = "product"  ' 資料表名稱
-    Public Const C_OnlyRateOneTime As Boolean = False  ' 設定在同一次開啟程式時, 同一產品只可評價一次 (True = 只可評價一次 ... False = 可評價多次)
-    Public Const C_CountExit As Int16 = 5  ' 設定離開程式可以錯誤的密碼次數  (0=無限次)
+    Public Const C_OnlyRateOneTime As Boolean = True  ' 設定在同一次開啟程式時, 同一產品只可評價一次 (True(Default) = 只可評價一次 ... False = 可評價多次)
+    Public Const C_CountExit As Int16 = 5  ' 設定離開程式可以錯誤的密碼次數  (Default 0 = 無限次)
+    Public Const C_FastClose As Boolean = True  ' 設定是否按選擇頁 (FmSelection) 的 "X" 時, 馬上關閉程式  (True(Default) = 馬上關閉 ... False = 開啟登入 (Login) 頁)
 
-    Public MydbDataSet As New DataSet
-    Public MydbDataSetBindingSource As New BindingSource
+    Public MydbDataSet As New DataSet  ' 此程式內的 DataSet
+    'Public MydbDataSetBindingSource As New BindingSource  ' 此程式內的 DataBinding
 
     Sub Main()
         Dim vLine() As String  ' 資料庫接入資訊
@@ -86,6 +87,8 @@ Module Module1
              "productname varchar(63) Not NULL, " &
              "productcategory varchar(63) Not NULL, " &
              "location varchar(63) Not NULL, " &
+             "producttype varchar(63) Not NULL, " &
+             "rateduser mediumtext Not NULL, " &
              "price DOUBLE Not NULL DEFAULT 0, " &
              "star5 Int(8) Not NULL Default 0, " &
              "star4 Int(8) Not NULL Default 0, " &
@@ -98,16 +101,26 @@ Module Module1
              ") ENGINE=MyISAM DEFAULT CHARSET=utf8"
 
             NQ_command.ExecuteNonQuery()
+
+            ' USER 資料表內容
+            NQ_command.CommandText = "CREATE TABLE " & C_TABLE & "(" &
+             "userid INT(8) UNSIGNED Not NULL, " &
+             "username varchar(63) Not NULL, " &
+             "userpass varchar(63) Not NULL, " &
+             "approved TINYINT(1) Not NULL, " &
+             "key(userid)" &
+             ") ENGINE=MyISAM DEFAULT CHARSET=utf8"
+
+            NQ_command.ExecuteNonQuery()
+
             NQ_command.Dispose()
             MessageBox.Show("New Data Table Created")
             Call P_Dispose()  ' 先把資源釋放
             End
         End If
 
-        Form4.StartPosition = FormStartPosition.CenterScreen
-        Form3.StartPosition = FormStartPosition.CenterScreen
-
-        Form3.ShowDialog()
+        ' 列出登入視窗
+        FmLogin.Show()
     End Sub
 
 

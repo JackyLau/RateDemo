@@ -1,5 +1,5 @@
 ﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
-Partial Class Form1
+Partial Class FmProductList
     Inherits System.Windows.Forms.Form
 
     'Form overrides dispose to clean up the component list.
@@ -23,9 +23,12 @@ Partial Class Form1
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
-        Dim ChartArea1 As System.Windows.Forms.DataVisualization.Charting.ChartArea = New System.Windows.Forms.DataVisualization.Charting.ChartArea()
-        Dim Legend1 As System.Windows.Forms.DataVisualization.Charting.Legend = New System.Windows.Forms.DataVisualization.Charting.Legend()
-        Dim Series1 As System.Windows.Forms.DataVisualization.Charting.Series = New System.Windows.Forms.DataVisualization.Charting.Series()
+        Dim ChartArea2 As System.Windows.Forms.DataVisualization.Charting.ChartArea = New System.Windows.Forms.DataVisualization.Charting.ChartArea()
+        Dim Legend2 As System.Windows.Forms.DataVisualization.Charting.Legend = New System.Windows.Forms.DataVisualization.Charting.Legend()
+        Dim Series2 As System.Windows.Forms.DataVisualization.Charting.Series = New System.Windows.Forms.DataVisualization.Charting.Series()
+        Dim ChartArea3 As System.Windows.Forms.DataVisualization.Charting.ChartArea = New System.Windows.Forms.DataVisualization.Charting.ChartArea()
+        Dim Legend3 As System.Windows.Forms.DataVisualization.Charting.Legend = New System.Windows.Forms.DataVisualization.Charting.Legend()
+        Dim Series3 As System.Windows.Forms.DataVisualization.Charting.Series = New System.Windows.Forms.DataVisualization.Charting.Series()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.Label3 = New System.Windows.Forms.Label()
@@ -35,7 +38,7 @@ Partial Class Form1
         Me.Label6 = New System.Windows.Forms.Label()
         Me.Label7 = New System.Windows.Forms.Label()
         Me.Label8 = New System.Windows.Forms.Label()
-        Me.Button1 = New System.Windows.Forms.Button()
+        Me.BtRate = New System.Windows.Forms.Button()
         Me.TXTproductID = New System.Windows.Forms.TextBox()
         Me.TXTproductName = New System.Windows.Forms.TextBox()
         Me.TXTprice = New System.Windows.Forms.TextBox()
@@ -63,11 +66,13 @@ Partial Class Form1
         Me.Chart1 = New System.Windows.Forms.DataVisualization.Charting.Chart()
         Me.MydbDataSetBindingSourceQQ = New System.Windows.Forms.BindingSource(Me.components)
         Me.MydbDataSetQQ = New WindowsApplication2.mydbDataSet()
+        Me.Chart2 = New System.Windows.Forms.DataVisualization.Charting.Chart()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.Chart1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.MydbDataSetBindingSourceQQ, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.MydbDataSetQQ, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.Chart2, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'Label1
@@ -109,7 +114,7 @@ Partial Class Form1
         'Label4
         '
         Me.Label4.AutoSize = True
-        Me.Label4.Location = New System.Drawing.Point(68, 200)
+        Me.Label4.Location = New System.Drawing.Point(104, 200)
         Me.Label4.Name = "Label4"
         Me.Label4.Size = New System.Drawing.Size(33, 12)
         Me.Label4.TabIndex = 4
@@ -118,7 +123,7 @@ Partial Class Form1
         'Label5
         '
         Me.Label5.AutoSize = True
-        Me.Label5.Location = New System.Drawing.Point(133, 200)
+        Me.Label5.Location = New System.Drawing.Point(169, 200)
         Me.Label5.Name = "Label5"
         Me.Label5.Size = New System.Drawing.Size(33, 12)
         Me.Label5.TabIndex = 5
@@ -127,7 +132,7 @@ Partial Class Form1
         'Label6
         '
         Me.Label6.AutoSize = True
-        Me.Label6.Location = New System.Drawing.Point(198, 200)
+        Me.Label6.Location = New System.Drawing.Point(234, 200)
         Me.Label6.Name = "Label6"
         Me.Label6.Size = New System.Drawing.Size(33, 12)
         Me.Label6.TabIndex = 6
@@ -136,7 +141,7 @@ Partial Class Form1
         'Label7
         '
         Me.Label7.AutoSize = True
-        Me.Label7.Location = New System.Drawing.Point(263, 200)
+        Me.Label7.Location = New System.Drawing.Point(299, 200)
         Me.Label7.Name = "Label7"
         Me.Label7.Size = New System.Drawing.Size(33, 12)
         Me.Label7.TabIndex = 7
@@ -145,20 +150,20 @@ Partial Class Form1
         'Label8
         '
         Me.Label8.AutoSize = True
-        Me.Label8.Location = New System.Drawing.Point(328, 200)
+        Me.Label8.Location = New System.Drawing.Point(364, 200)
         Me.Label8.Name = "Label8"
         Me.Label8.Size = New System.Drawing.Size(33, 12)
         Me.Label8.TabIndex = 8
         Me.Label8.Text = "1 star:"
         '
-        'Button1
+        'BtRate
         '
-        Me.Button1.Location = New System.Drawing.Point(544, 200)
-        Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(176, 29)
-        Me.Button1.TabIndex = 10
-        Me.Button1.Text = "Rate"
-        Me.Button1.UseVisualStyleBackColor = True
+        Me.BtRate.Location = New System.Drawing.Point(544, 200)
+        Me.BtRate.Name = "BtRate"
+        Me.BtRate.Size = New System.Drawing.Size(176, 29)
+        Me.BtRate.TabIndex = 10
+        Me.BtRate.Text = "Rate"
+        Me.BtRate.UseVisualStyleBackColor = True
         '
         'TXTproductID
         '
@@ -187,7 +192,7 @@ Partial Class Form1
         'TXTstar5
         '
         Me.TXTstar5.Enabled = False
-        Me.TXTstar5.Location = New System.Drawing.Point(101, 197)
+        Me.TXTstar5.Location = New System.Drawing.Point(137, 197)
         Me.TXTstar5.Name = "TXTstar5"
         Me.TXTstar5.Size = New System.Drawing.Size(20, 22)
         Me.TXTstar5.TabIndex = 14
@@ -195,7 +200,7 @@ Partial Class Form1
         'TXTstar4
         '
         Me.TXTstar4.Enabled = False
-        Me.TXTstar4.Location = New System.Drawing.Point(166, 197)
+        Me.TXTstar4.Location = New System.Drawing.Point(202, 197)
         Me.TXTstar4.Name = "TXTstar4"
         Me.TXTstar4.Size = New System.Drawing.Size(20, 22)
         Me.TXTstar4.TabIndex = 15
@@ -203,7 +208,7 @@ Partial Class Form1
         'TXTstar3
         '
         Me.TXTstar3.Enabled = False
-        Me.TXTstar3.Location = New System.Drawing.Point(231, 197)
+        Me.TXTstar3.Location = New System.Drawing.Point(267, 197)
         Me.TXTstar3.Name = "TXTstar3"
         Me.TXTstar3.Size = New System.Drawing.Size(20, 22)
         Me.TXTstar3.TabIndex = 16
@@ -211,7 +216,7 @@ Partial Class Form1
         'TXTstar2
         '
         Me.TXTstar2.Enabled = False
-        Me.TXTstar2.Location = New System.Drawing.Point(296, 197)
+        Me.TXTstar2.Location = New System.Drawing.Point(332, 197)
         Me.TXTstar2.Name = "TXTstar2"
         Me.TXTstar2.Size = New System.Drawing.Size(20, 22)
         Me.TXTstar2.TabIndex = 17
@@ -219,7 +224,7 @@ Partial Class Form1
         'TXTstar1
         '
         Me.TXTstar1.Enabled = False
-        Me.TXTstar1.Location = New System.Drawing.Point(361, 197)
+        Me.TXTstar1.Location = New System.Drawing.Point(397, 197)
         Me.TXTstar1.Name = "TXTstar1"
         Me.TXTstar1.Size = New System.Drawing.Size(20, 22)
         Me.TXTstar1.TabIndex = 18
@@ -289,7 +294,7 @@ Partial Class Form1
         Me.Lbltotalnumber.AutoSize = True
         Me.Lbltotalnumber.Font = New System.Drawing.Font("Nirmala UI", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Lbltotalnumber.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.Lbltotalnumber.Location = New System.Drawing.Point(411, 194)
+        Me.Lbltotalnumber.Location = New System.Drawing.Point(11, 194)
         Me.Lbltotalnumber.Name = "Lbltotalnumber"
         Me.Lbltotalnumber.Size = New System.Drawing.Size(62, 25)
         Me.Lbltotalnumber.TabIndex = 26
@@ -331,7 +336,7 @@ Partial Class Form1
         '
         'BtHome
         '
-        Me.BtHome.Location = New System.Drawing.Point(12, 13)
+        Me.BtHome.Location = New System.Drawing.Point(12, 19)
         Me.BtHome.Name = "BtHome"
         Me.BtHome.Size = New System.Drawing.Size(54, 28)
         Me.BtHome.TabIndex = 31
@@ -357,17 +362,17 @@ Partial Class Form1
         '
         'Chart1
         '
-        ChartArea1.Name = "ChartArea1"
-        Me.Chart1.ChartAreas.Add(ChartArea1)
-        Legend1.Name = "Legend1"
-        Me.Chart1.Legends.Add(Legend1)
+        ChartArea2.Name = "ChartArea1"
+        Me.Chart1.ChartAreas.Add(ChartArea2)
+        Legend2.Name = "Legend1"
+        Me.Chart1.Legends.Add(Legend2)
         Me.Chart1.Location = New System.Drawing.Point(480, 249)
         Me.Chart1.Name = "Chart1"
-        Series1.ChartArea = "ChartArea1"
-        Series1.Legend = "Legend1"
-        Series1.Name = "Series1"
-        Me.Chart1.Series.Add(Series1)
-        Me.Chart1.Size = New System.Drawing.Size(309, 158)
+        Series2.ChartArea = "ChartArea1"
+        Series2.Legend = "Legend1"
+        Series2.Name = "Series1"
+        Me.Chart1.Series.Add(Series2)
+        Me.Chart1.Size = New System.Drawing.Size(314, 158)
         Me.Chart1.TabIndex = 37
         Me.Chart1.Text = "Chart1"
         '
@@ -376,11 +381,28 @@ Partial Class Form1
         Me.MydbDataSetQQ.DataSetName = "mydbDataSet"
         Me.MydbDataSetQQ.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema
         '
-        'Form1
+        'Chart2
+        '
+        ChartArea3.Name = "ChartArea1"
+        Me.Chart2.ChartAreas.Add(ChartArea3)
+        Legend3.Name = "Legend1"
+        Me.Chart2.Legends.Add(Legend3)
+        Me.Chart2.Location = New System.Drawing.Point(515, 472)
+        Me.Chart2.Name = "Chart2"
+        Series3.ChartArea = "ChartArea1"
+        Series3.Legend = "Legend1"
+        Series3.Name = "Series1"
+        Me.Chart2.Series.Add(Series3)
+        Me.Chart2.Size = New System.Drawing.Size(300, 300)
+        Me.Chart2.TabIndex = 38
+        Me.Chart2.Text = "Chart2"
+        '
+        'FmProductList
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(826, 505)
+        Me.Controls.Add(Me.Chart2)
         Me.Controls.Add(Me.Chart1)
         Me.Controls.Add(Me.TxtName)
         Me.Controls.Add(Me.Label11)
@@ -405,7 +427,7 @@ Partial Class Form1
         Me.Controls.Add(Me.TXTprice)
         Me.Controls.Add(Me.TXTproductName)
         Me.Controls.Add(Me.TXTproductID)
-        Me.Controls.Add(Me.Button1)
+        Me.Controls.Add(Me.BtRate)
         Me.Controls.Add(Me.Label8)
         Me.Controls.Add(Me.Label7)
         Me.Controls.Add(Me.Label6)
@@ -415,13 +437,14 @@ Partial Class Form1
         Me.Controls.Add(Me.Label3)
         Me.Controls.Add(Me.Label2)
         Me.Controls.Add(Me.Label1)
-        Me.Name = "Form1"
-        Me.Text = "User Name:"
+        Me.Name = "FmProductList"
+        Me.Text = "ProductList"
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.Chart1, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.MydbDataSetBindingSourceQQ, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.MydbDataSetQQ, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.Chart2, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -436,7 +459,7 @@ Partial Class Form1
     Friend WithEvents Label6 As Label
     Friend WithEvents Label7 As Label
     Friend WithEvents Label8 As Label
-    Friend WithEvents Button1 As Button
+    Friend WithEvents BtRate As Button
     Friend WithEvents TXTproductID As TextBox
     Friend WithEvents TXTproductName As TextBox
     Friend WithEvents TXTprice As TextBox
@@ -464,4 +487,5 @@ Partial Class Form1
     Friend WithEvents Label11 As Label
     Friend WithEvents TxtName As TextBox
     Friend WithEvents Chart1 As DataVisualization.Charting.Chart
+    Friend WithEvents Chart2 As DataVisualization.Charting.Chart
 End Class

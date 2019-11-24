@@ -1,9 +1,7 @@
 ﻿Imports System.ComponentModel
 Imports MySql.Data.MySqlClient
 
-Public Class Form1
-    Dim ArrRated As New ArrayList ' 已評分
-
+Public Class FmProductList
     '表單啟始時執行
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         ' 設定幾個按鈕的額外資訊
@@ -43,7 +41,7 @@ Public Class Form1
 
         SqlAdapter.SelectCommand.Dispose()  ' 釋放資源
 
-        ' 顯示所有記錄
+        ' 顯示所有產品記錄
         F2_Rate = 0
         Call P_ShowRecord("True")
 
@@ -72,8 +70,10 @@ Public Class Form1
             Lbltotalnumber.DataBindings.Add("Text", MydbDataSetBindingSourceQQ, "totstar")  ' 列出已評分的總數
         End If
 
+        ' 列出使用中的用戶名稱
         TxtName.Text = CurUserName
 
+        ' 可以拉入圖片
         PictureBox1.AllowDrop = True
     End Sub
 
@@ -112,11 +112,11 @@ Public Class Form1
         If MydbDataSetQQ.Tables(C_TABLE).Rows.Count > 0 Then Call P_ShowPicture()  ' 若有記錄, 顯示圖片
     End Sub
 
-    ' 顯示圖片 ..... V_row = 資料表的行號
+    ' 顯示圖片 及 圖表 (Chart)
     Private Sub P_ShowPicture()
         Dim SQLdataRow As DataRow  ' 一筆資料的記錄
         Dim i As Int16  ' 圖表變數
-        Dim Cx() As String = {"5 Star", "4 Star", "3 Star", "2 Star", "1 Star"}  ' 圖表變數 .... 列表
+        Dim Cx() As String = {"5 Star", "4 Star", "3 Star", "2 Star", "1 Star"}  ' 圖表變數 .... 列表顯示的文字
         Dim Cy(4) As Int16  ' 圖表變數 .... 內容數值
 
         If DataGridView1.Rows.Count > 0 Then
@@ -134,7 +134,7 @@ Public Class Form1
             End If
 
             ' 設定是否可以投票 ... 若此用戶已投票於此產品, 不可以再投票
-            Button1.Enabled = (InStr(SQLdataRow.Item("rateduser").ToString, ("," & CStr(CurUserID) & ",")) = 0)
+            BtRate.Enabled = ((InStr(SQLdataRow.Item("rateduser").ToString, ("," & CStr(CurUserID) & ",")) = 0) Or (C_OnlyRateOneTime = False))
 
             ' 列出圖表 (Chart)
             For i = 1 To 5
@@ -171,23 +171,22 @@ Public Class Form1
         ' 程式關閉, 把資源釋放
         MydbDataSetQQ.Dispose()
         MydbDataSetBindingSourceQQ.Dispose()
-        ArrRated = Nothing
-        Form4.Show()
+        FmSelection.Show()
     End Sub
 
-    ' 去 Form2 表單, 輸入內容
-    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
-        ' 測試是否已在此次評分同一產品 ... 及必須有記錄於資料庫內 ... 合乎條件才可進入評分頁 (Form2)
-        If ((ArrRated.Contains(DataGridView1.CurrentRow.Cells("ID").Value) = False) Or (C_OnlyRateOneTime = False)) And
-         (MydbDataSetQQ.Tables(C_TABLE).Rows.Count > 0) Then
+    ' 去 FmRating 表單, 輸入內容
+    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles BtRate.Click
+        ' 必須有記錄於資料庫內, 才可進入評分頁 (FmRating)
+        If MydbDataSetQQ.Tables(C_TABLE).Rows.Count > 0 Then
             F2_Rate = 0
             F2_Comment = ""
-            Form2.ShowDialog()
+            FmRating.ShowDialog()  ' 顯示評價表單
+            Call P_SaveRate()  ' 把評價的內容, 寫入資料庫以保存
         End If
     End Sub
 
-    ' 把輸入的內容, 寫入資料庫以保存 .... 當此 Form1 表單再顯示時作用
-    Private Sub Form1_Activated(sender As Object, e As EventArgs) Handles Me.Activated
+    ' 把輸入評價的內容, 寫入資料庫以保存
+    Private Sub P_SaveRate()
         Dim SQLdataRow As DataRow  ' 一筆資料的記錄
 
         ' 若不是新開表單, 而且是剛從 Form2 回來, 而且又已選取了 "評價星星" 才作更新
@@ -195,30 +194,37 @@ Public Class Form1
 
             ' 先取得現時的一筆資料的記錄
             SQLdataRow = MydbDataSetQQ.Tables(C_TABLE).Rows.Find(DataGridView1.CurrentRow.Cells("ID").Value)
+
             ' 在資料記錄內, 把已選取的 "評價星星" 數目加一
             SQLdataRow.Item("star" & CStr(F2_Rate)) += 1
+            F2_Rate = 0
+
             ' 把已在此產品評價的客戶 ID 記錄
             If (SQLdataRow.Item("rateduser") & "") = "" Then SQLdataRow.Item("rateduser") = ","
             SQLdataRow.Item("rateduser") &= CStr(CurUserID) & ","
+
             ' 如果有寫入評語 (Comment), 加入一行新的評語 (加入於原有的評語下)
             If F2_Comment <> "" Then SQLdataRow.Item("comment") &= vbCrLf & F2_Comment
+
             ' 更新資料庫內容
-            SqlAdapter.Update(MydbDataSetQQ, C_TABLE)
-
-            ' 加進入已評分產品記錄群內
-            If C_OnlyRateOneTime Then ArrRated.Add(DataGridView1.CurrentRow.Cells("ID").Value)
-            F2_Rate = 0
-
-            SqlAdapter.Fill(MydbDataSetQQ, C_TABLE)
-            Button1.Enabled = False
+            Try
+                SqlAdapter.Update(MydbDataSetQQ, C_TABLE)
+                BtRate.Enabled = False
+                SqlAdapter.Fill(MydbDataSetQQ, C_TABLE)
+            Catch ex As Exception
+            End Try
         End If
+    End Sub
+
+    ' 當此 Form1 表單再顯示時作用, 把輸入評價的內容, 寫入資料庫以保存 .... 
+    Private Sub Form1_Activated(sender As Object, e As EventArgs) Handles Me.Activated
+        'Call P_SaveRate()
     End Sub
 
     ' 顯示已選取記錄的評語 (Comment) 內容
     Private Sub BTcomment_Click(sender As Object, e As EventArgs) Handles BTcomment.Click
         If MydbDataSetQQ.Tables(C_TABLE).Rows.Count > 0 Then MessageBox.Show(MydbDataSetQQ.Tables(C_TABLE).Rows.Find(DataGridView1.CurrentRow.Cells("ID").Value).Item("comment"))
     End Sub
-
 
     ' 當有檔案拉入, 顯示出可拉入的 ICON, 確定是檔案 (不是其他物件), 確定只有一個檔案, 確定不是資料匣, 確定是 JPG 檔
     Private Sub PictureBox1_DragEnter(sender As Object, e As DragEventArgs) Handles PictureBox1.DragEnter
@@ -228,7 +234,6 @@ Public Class Form1
              (UCase(FileIO.FileSystem.GetFileInfo(vfilename(0)).Extension) = ".JPG") Then e.Effect = DragDropEffects.Copy
         End If
     End Sub
-
 
     ' 有檔案拉入照片匡, 顯示拉入的照片, 及儲存該照片於現時記錄
     Private Sub PictureBox1_DragDrop(sender As Object, e As DragEventArgs) Handles PictureBox1.DragDrop
@@ -278,7 +283,7 @@ Public Class Form1
         Call P_ShowRecord("productcategory = '" & ComboBox1.Text & "'")
     End Sub
 
-    ' 顯示選擇窗 (Form4)
+    ' 顯示選擇窗 (FmSelection)
     Private Sub BtHome_Click(sender As Object, e As EventArgs) Handles BtHome.Click
         Me.Close()
     End Sub

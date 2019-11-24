@@ -1,5 +1,5 @@
 ﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
-Partial Class Form2
+Partial Class FmRating
     Inherits System.Windows.Forms.Form
 
     'Form overrides dispose to clean up the component list.
@@ -22,7 +22,7 @@ Partial Class Form2
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
-        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Form2))
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FmRating))
         Me.GunaImageButton1 = New Guna.UI.WinForms.GunaImageButton()
         Me.GunaImageButton2 = New Guna.UI.WinForms.GunaImageButton()
         Me.GunaImageButton3 = New Guna.UI.WinForms.GunaImageButton()
@@ -35,7 +35,7 @@ Partial Class Form2
         Me.Label5 = New System.Windows.Forms.Label()
         Me.GunaTextBox1 = New Guna.UI.WinForms.GunaTextBox()
         Me.Label6 = New System.Windows.Forms.Label()
-        Me.Button1 = New System.Windows.Forms.Button()
+        Me.BtSubmit = New System.Windows.Forms.Button()
         Me.SuspendLayout()
         '
         'GunaImageButton1
@@ -169,21 +169,21 @@ Partial Class Form2
         Me.Label6.TabIndex = 11
         Me.Label6.Text = "comment"
         '
-        'Button1
+        'BtSubmit
         '
-        Me.Button1.Location = New System.Drawing.Point(61, 256)
-        Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(75, 21)
-        Me.Button1.TabIndex = 5
-        Me.Button1.Text = "submit"
-        Me.Button1.UseVisualStyleBackColor = True
+        Me.BtSubmit.Location = New System.Drawing.Point(61, 256)
+        Me.BtSubmit.Name = "BtSubmit"
+        Me.BtSubmit.Size = New System.Drawing.Size(75, 21)
+        Me.BtSubmit.TabIndex = 5
+        Me.BtSubmit.Text = "Submit"
+        Me.BtSubmit.UseVisualStyleBackColor = True
         '
-        'Form2
+        'FmRating
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(408, 314)
-        Me.Controls.Add(Me.Button1)
+        Me.Controls.Add(Me.BtSubmit)
         Me.Controls.Add(Me.Label6)
         Me.Controls.Add(Me.GunaTextBox1)
         Me.Controls.Add(Me.Label5)
@@ -196,8 +196,9 @@ Partial Class Form2
         Me.Controls.Add(Me.GunaImageButton3)
         Me.Controls.Add(Me.GunaImageButton2)
         Me.Controls.Add(Me.GunaImageButton1)
-        Me.Name = "Form2"
-        Me.Text = "Form2"
+        Me.Name = "FmRating"
+        Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent
+        Me.Text = "Rating"
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -215,5 +216,5 @@ Partial Class Form2
     Friend WithEvents Label5 As Label
     Friend WithEvents GunaTextBox1 As Guna.UI.WinForms.GunaTextBox
     Friend WithEvents Label6 As Label
-    Friend WithEvents Button1 As Button
+    Friend WithEvents BtSubmit As Button
 End Class

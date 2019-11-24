@@ -1,4 +1,4 @@
-﻿Public Class Form2
+﻿Public Class FmRating
 
     Dim ArrButton As Guna.UI.WinForms.GunaImageButton()  ' 評價星星按鈕的陣列
     Const TextBoxDefault As String = "write down you comment"  ' 評語 (comment) TextBox 上的內定顯示文字
@@ -27,8 +27,8 @@
         GunaTextBox1.Enabled = True
     End Sub
 
-    ' 返回原本視窗
-    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
+    ' 返回原本視窗, 產品列表視窗
+    Private Sub BtSubmit_Click(sender As Object, e As EventArgs) Handles BtSubmit.Click
         Dim i As Int16
 
         ' 把已按下的 "評價星星" 按鈕的等級 (1-5) 記錄
@@ -57,7 +57,7 @@
 
     ' 方便返回時顯示內定文字 .... Fix Bug for GunnaTextBox
     Private Sub Form2_Closed(sender As Object, e As EventArgs) Handles Me.Closed
-        Button1.Focus()
+        BtSubmit.Focus()
     End Sub
 
 End Class
